@@ -1448,7 +1448,7 @@
    \let\@fnsymbol\ieicej@fnsymbol
    \protected@xdef\@Emadrs{\@Emadrs
     %\protect\footnotetext[\the\c@enumiv]{E-mail: \protect\texttt{#1}}%
-    \protect\footnotetext[\the\c@enumiv]{E-mail: #1}%
+    \protect\footnotetext[\the\c@enumiv]{E-maila: #1}%
    }%
   \fi
  }%
@@ -1600,62 +1600,7 @@
 
 \newcount\totalnumberm@ne
 
-\def\L@outputEauthorlist{%
- \def\r@member{{\itshape Member}}%
- \def\r@members{{\itshape Members}}%
- \def\m@member{{\itshape Member}}%
- \def\m@members{{\itshape Members}}%
- \def\n@member{{\itshape  Nonmember}}%
- \def\n@members{{\itshape Nonmembers}}%
- \def\a@member{{\itshape  Affiliate Member}}%
- \def\a@members{{\itshape Affiliate Members}}%
- \def\h@member{{\itshape  Fellow, Honorary Member}}%
- \def\h@members{{\itshape Fellows, Honorary Members}}%
- \def\s@member{{\itshape  Student Member}}%
- \def\s@members{{\itshape Student Members}}%
- \def\f@member{{\itshape Fellow}}%
- \def\f@members{{\itshape Fellows}}%
- \def\e@member{{\itshape Senior Member}}%
- \def\e@members{{\itshape Senior Members}}%
- \def\no@authormembership{\relax}%
- \@authorcnt\z@
- \totalnumberm@ne\@totalnumber \advance \totalnumberm@ne -\@ne
-  \loop\ifnum \@authorcnt < \@totalnumber
-   \advance \@authorcnt \@ne
-    \ifnum \@authorcnt < \totalnumberm@ne
-     \mbox{\csname @Eauthorname\number\@authorcnt\endcsname
-      \expandafter\ifx \csname @authormembership\number\@authorcnt\endcsname
-       \no@authormembership
-      \else
-       \nobreak, 
-      \fi
-     \nobreak\csname @authormembership\number\@authorcnt\endcsname}\nobreak, 
-      \csname @breakauthorline\number\@authorcnt\endcsname
-    \else
-     \ifnum \@authorcnt = \@totalnumber
-      \mbox{\csname @Eauthorname\number\@authorcnt\endcsname
-       \expandafter\ifx \csname @authormembership\number\@authorcnt\endcsname
-        \no@authormembership
-       \else
-        \nobreak, 
-       \fi
-      \nobreak\csname @authormembership\number\@authorcnt\endcsname}%
-        \csname @breakauthorline\number\@authorcnt\endcsname
-     \else
-      \mbox{\csname @Eauthorname\number\@authorcnt\endcsname
-       \expandafter\ifx \csname @authormembership\number\@authorcnt\endcsname
-        \no@authormembership
-       \else
-        \nobreak, 
-       \fi
-      \nobreak\csname @authormembership\number\@authorcnt\endcsname
-       \ifnum \@totalnumber=\tw@\ \else , \fi}%
-        \csname @breakauthorline\number\@authorcnt\endcsname\allowbreak
-         and\ 
-     \fi
-    \fi
-  \repeat
-}
+
 
 \def\@outputEauthorlist{%
  \@authorcnt\z@
@@ -1681,66 +1626,6 @@
 \newif\if@plural
 \newcount\@authorcntp@ne
 
-%% letter and letter paper
-\def\@chkmbrship{%
- \the\@authorlist
- \@authorcnt \z@
- \@pluralfalse
- \loop\ifnum \@authorcnt < \@totalnumber
-  \advance \@authorcnt \@ne
-  \@authorcntp@ne=\@authorcnt \advance \@authorcntp@ne \@ne
-   \if@plural
-    \edef\@nextmembership{%
-     \csname @authormembership\number\@authorcntp@ne*\endcsname}%
-   \else
-    \edef\@nextmembership{%
-     \csname @authormembership\number\@authorcntp@ne\endcsname}%
-   \fi
-  \expandafter\ifx\csname @authormembership\number\@authorcnt\endcsname
-   \@nextmembership
-    \expandafter\gdef\csname @authormembership\number\@authorcnt\endcsname
-     {\relax}%
-    \edef\tempauthormembership
-     {\csname @authormembership\number\@authorcntp@ne*\endcsname}%
-    \expandafter\let
-     \csname @authormembership\number\@authorcntp@ne\endcsname
-      \tempauthormembership \@pluraltrue
-  \else \@pluralfalse
-  \fi
- \repeat
-}
-
-\def\MembershipNumber#1{%
- \def\tmpchk@MN{#1}%
- \ifx\tmpchk@MN\@empty\else
-  \expandafter\def\csname EICMN@\number\@authorcnt\endcsname{#1}%
- \fi
-}
-\def\@Membership@Number{%
- \@authorcnt\z@
- \loop
-  \ifnum \@authorcnt < \@totalnumber
-   \advance \@authorcnt \@ne
-   \chk@MN{EICMN@\number\@authorcnt}%
-   \noindent
-   \csname EICMN@name\number\@authorcnt\endcsname\hskip2zw
-   \texttt{\csname EICMN@\number\@authorcnt\endcsname}\par
- \repeat
-}
-
-\def\chk@MN#1{%
- \@ifundefined{#1}{}{%
-  \expandafter\@tempcnta \csname #1\endcsname\relax
-  \ifnum \@tempcnta > 9999999\relax
-   \ieicej@warning{Membership Number "\the\@tempcnta" might be wrong}%
-  \else
-   \ifnum \@tempcnta < 1000000\relax
-    \ieicej@warning{Membership Number "\the\@tempcnta" might be wrong}%
-   \fi
-  \fi
- }%
-}
-
 \def\Jorganization#1{#1}
 \def\Jdepartment#1{#1}
 \def\Jaddress#1{#1}
@@ -1753,63 +1638,7 @@
 \newcount\chk@p@alcnt
 
 \if@tecrep %%%
- \def\affiliate[#1]#2#3{%
-  \advance \chk@alcnt \@ne
-  \@ifundefined{al@#1}%
-   {\expandafter\def\csname al@#1\endcsname{1}%
-    \ieicej@warning{Check the "#1" label, it does not correspond to
-      ^^J\space\space any labels in \string\authorentry\space command}%
-   }{}%
-  \protected@xdef\J@affiliate{\J@affiliate
-   $\protect\ieicej@fnsymbol{\csname al@#1\endcsname}$\ #2\\}%
-  \protected@xdef\E@affiliate{\E@affiliate
-   $\protect\ieicej@fnsymbol{\csname al@#1\endcsname}$\ #3\\}%
- }
- \def\J@affiliate{}
- \def\E@affiliate{}
-
- %% 引数を3つに変更
- \def\paffiliate[#1]#2#3{%
-  \advance \chk@p@alcnt \@ne
-  \@ifundefined{p@al@#1}%
-   {\expandafter\def\csname p@al@#1\endcsname{1}%
-    \ieicej@warning{Check the "#1" label, it does not correspond to
-     ^^J\space\space any labels in \string\authorentry\space command}
-   }{}%
-  \protected@xdef\Jp@affiliate{\Jp@affiliate
-   $\protect\ieicej@fnsymbol{\csname p@al@#1\endcsname}$\ #2}%
-  \protected@xdef\Ep@affiliate{\Ep@affiliate
-   $\protect\ieicej@fnsymbol{\csname p@al@#1\endcsname}$\ #3}%
- }
- \def\Jp@affiliate{}
- \def\Ep@affiliate{}
 \else %%%
- \def\affiliate[#1]#2#3{%
-  \advance \chk@alcnt \@ne
-  \@ifundefined{al@#1}%
-   {\expandafter\def\csname al@#1\endcsname{1}%
-    \ieicej@warning{Check the "#1" label, it does not correspond to
-      ^^J\space\space any labels in \string\authorentry\space command}%
-   }{}%
-  %% \let\@fnsymbol\ieicej@fnsymbol %% \show
-  \protected@xdef\@affiliate{\@affiliate
-   \protect\footnotetext[\csname al@#1\endcsname]{%%\protect\raggedright
-    #2\hfil\break #3}}%
- }
- \def\@affiliate{}
-
- \def\paffiliate[#1]#2{%
-  \advance \chk@p@alcnt \@ne
-  \@ifundefined{p@al@#1}%
-   {\expandafter\def\csname p@al@#1\endcsname{1}%
-    \ieicej@warning{Check the "#1" label, it does not correspond to
-     ^^J\space\space any labels in \string\authorentry\space command}
-   }{}%
-  %% \let\@fnsymbol\ieicej@fnsymbol %% \show
-  \protected@xdef\p@affiliate{\p@affiliate
-   \protect\footnotetext[\csname p@al@#1\endcsname]{#2}}%
- }
- \def\p@affiliate{}
 \fi %%%
 
 \newbox\eabstractbox
@@ -1876,10 +1705,10 @@
   \endgroup
    \let\maketitle\relax
    \let\@maketitle\relax
-   \gdef\@affiliate{}\gdef\p@affiliate{}
+%   \gdef\@affiliate{}\gdef\p@affiliate{}
    \gdef\@jtitle{}\gdef\@etitle{}
    \gdef\@jsubtitle{}\gdef\@esubtitle{}
-   \let\affiliate\relax\let\paffiliate\relax
+%   \let\affiliate\relax\let\paffiliate\relax
    \@authorlist={}%
    \let\jkeyword\relax\let\jabstract\relax
    \let\ekeyword\relax\let\eabstract\relax
@@ -1932,18 +1761,18 @@
      }%
      \vskip.5\baselineskip
      {\fontsize{10.5}{15}\selectfont
-      \J@affiliate\par
-      \Jp@affiliate\par
+%      \J@affiliate\par
+%      \Jp@affiliate\par
       \ifx\@MailAddress\empty
        \fmt@Ema
        \ifx\header@ma\empty
         \vskip.5\baselineskip
        \else
-	E-mail: \Mail@ddress\par
+	E-mail:a \Mail@ddress\par
 	\vskip.5\baselineskip
        \fi
       \else
-       E-mail: \@MailAddress
+       E-mail:a \@MailAddress
        \vskip.5\baselineskip
       \fi
      }%
@@ -1979,17 +1808,17 @@
      }%
      \vskip.5\baselineskip
      {\fontsize{10.5}{15}\selectfont
-      \E@affiliate\par
-      \Ep@affiliate\par
+      %\E@affiliate\par
+      %\Ep@affiliate\par
       \ifx\@MailAddress\empty
        \ifx\header@ma\empty
         \vskip.5\baselineskip
        \else
-	E-mail: \Mail@ddress\par
+	E-mail:s \Mail@ddress\par
 	\vskip.5\baselineskip
        \fi
       \else
-       E-mail: \@MailAddress
+       E-mail:s \@MailAddress
        \vskip.5\baselineskip
       \fi
      }%
@@ -2148,8 +1977,8 @@
      \begin{minipage}{\columnwidth}%
       \@makeLtitle
       \@tempswafalse
-      \@affiliate
-      \p@affiliate
+      %\@affiliate
+      %\p@affiliate
       \@tempswatrue
       \@Emadrs
      \end{minipage}\par
@@ -2158,9 +1987,9 @@
   \endgroup
    \let\makeLtitle\relax
    \let\@makeLtitle\relax
-   \gdef\@affiliate{}\gdef\p@affiliate{}%
+   %\gdef\@affiliate{}\gdef\p@affiliate{}%
    \gdef\@jtitle{}\gdef\@etitle{}%
-   \let\affiliate\relax\let\paffiliate\relax
+   %\let\affiliate\relax\let\paffiliate\relax
    \@authorlist={}%
    \let\@outputJauthorlist\relax\let\L@outputEauthorlist\relax
    \let\L@aeP\relax
@@ -2243,16 +2072,16 @@
        \fi
     }%
    \@tempswafalse
-   \@affiliate
-   \p@affiliate
+   %\@affiliate
+   %\p@affiliate
    \@tempswatrue
    \@Emadrs
   \endgroup
    \let\maketitle\relax
    \expandafter\let\csname @make\@type title\endcsname\relax
-   \gdef\@affiliate{}\gdef\p@affiliate{}
+   %\gdef\@affiliate{}\gdef\p@affiliate{}
    \gdef\@jtitle{}\gdef\@etitle{}
-   \let\affiliate\relax\let\paffiliate\relax
+   %\let\affiliate\relax\let\paffiliate\relax
    \@authorlist={}
    \let\keyword\relax\let\abstract\relax
    \let\@outputJauthorlist\relax\let\@outputEauthorlist\relax
