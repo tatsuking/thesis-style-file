@@ -47,7 +47,7 @@
 \newif\if@tecrep \@tecrepfalse
 
 \DeclareOption{paper}{%
- \gdef\hd@type{論文}\gdef\tl@type{論\hskip1zw 文}\gdef\@type{P}}
+ \gdef\hd@type{論文}\gdef\tl@type{a論\hskip1zw 文}\gdef\@type{P}}
 \DeclareOption{invited}{\@papertrue
  \gdef\hd@type{招待論文}\gdef\tl@type{招待論文}\gdef\@type{P}}
 \DeclareOption{comment}{\@papertrue

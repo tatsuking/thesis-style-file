@@ -38,6 +38,7 @@
 \def\hd@type{卒\hskip1zw 業\hskip1zw 論\hskip1zw 文}\gdef\@type{P}
 \def\@type{P}% paper
 
+
 \def\ieicej@warning{\ClassWarningNoLine{ieicej}}
 
 
@@ -864,6 +865,9 @@
 \def\ft@year{}
 \def\@no{}
 
+\def\Sissue#1{\gdef\@Sissue{#1}}
+\def\@Sissue{}
+
 %\if@letter\typeofletter{研究速報}\fi
 \field{X}
 \no{xx}
@@ -877,10 +881,51 @@
 \def\t@typefont@P{%
  \Huge\baselineskip\z@ %% 24\@JQ
 }
+%% LP (electronicsletter)
+\def\t@typefont@LP{%
+ \LARGE\baselineskip\z@ %% 18\@JQ
+}
+%% L (letter)
+\let\t@typefont@L\huge
+\def\head@type#1{%% 20\@JQ 平2
+  {\t@typefont@L #1}%
+}
+
+
+%def\hd@typeofletter{\@typeofletter}
+
+
+
+\def\ps@ieicej{\let\@mkboth\@gobbletwo
+  \def\hrulefill{\leaders\hrule height-1.5mm depth1.75mm\hfil}%
+   \def\@oddhead{\@Ltop
+    \smash{\hbox to \textwidth{%
+     \rule[-1.75mm]{14mm}{0.25mm}%
+     \raisebox{-3mm}{\csname t@typefont@\@type\endcsname\tl@type}\hrulefill
+      \llap{\normalsize\bfseries\mathversion{bold}\@Sissue}}}%
+   \@Rtop}%
+  \let\@evenhead\@oddhead
+ \def\@oddfoot{\@Lbot\hfil
+  {\foot@font 電子情報通信学会論文誌\hskip1zw
+    \@field\hskip1zw Vol.\ \@vol\hskip1zw No.\,\@no\hskip1zw
+   pp.\,\thepage --\pageref{ieicej@lastpage}\hskip1zw
+   %%\ft@year 年\@no 月
+   {\normalfont\copyright}（社）電子情報通信学会\ft@year
+  }\hfil
+    \llap{{\nombre@font\thepage\hskip3mm}}%
+  \@Rbot}%
+ \def\@evenfoot{\@Lbot
+  \rlap{\hskip3mm{\nombre@font\thepage}}\hfil
+   {\foot@font 電子情報通信学会論文誌\hskip1zw
+    \@field\hskip1zw Vol.\ \@vol\hskip1zw
+    No.\,\@no\hskip1zw pp.\,\thepage --\pageref{ieicej@lastpage}\hskip1zw 
+    %%\ft@year 年\@no 月
+    {\normalfont\copyright}（社）電子情報通信学会\ft@year
+   }\hfil
+  \@Rbot}%
+}
 
  
-\def\ps@ieicej{
-}
 
 \def\ps@IEICEJ{\let\@mkboth\@gobbletwo
  \def\@oddfoot{\@Lbot\hfil
@@ -907,13 +952,13 @@
 %  \if@electronicsletter
 %   {\Small\head@font レ\hskip1zw タ\hskip1zw ー}%
 %  \else
-%   \setbox\@tempboxb\hbox{\Small\head@font\def\\{\unskip\ignorespaces}%
-%   \hd@type ／\kern\z@\hd@title}%
-%    \ifdim \wd\@tempboxb > \textwidth
-%     \ieicej@warning{header is too long. make it shorter. 
-%      ^^J\@spaces For example, \string\title[header title]{title}}%
-%    \fi
-%   \box\@tempboxb
+   \setbox\@tempboxb\hbox{\Small\head@font\def\\{\unskip\ignorespaces}%
+   \hd@type ／\kern\z@\hd@title}%
+    \ifdim \wd\@tempboxb > \textwidth
+     \ieicej@warning{header is too long. make it shorter. 
+      ^^J\@spaces For example, \string\title[header title]{title}}%
+    \fi
+   \box\@tempboxb
 %  \fi
 % \fi
 }
@@ -2283,81 +2328,6 @@
   \setcounter{footnote}{0}%
  }
 
- %% electronicsletter
- %\def\@makeLPtitle{%
- % \setbox\@tempboxa\hbox{%
- %  \begin{minipage}{137.5mm}% 151.5 - 14
- %   \vskip5mm
- %   \parindent\z@
- %   \tabcolsep\z@
- %   \linethickness{0.1mm}%
- %    {\jtitlefont@LP
- %     \@jtitle\par
- %    }%
- %    \vskip11\@Q
- %    {\jauthorfont@LP
- %     \tabcolsep\LPauthorsep
- %     \begin{tabular}{@{}llll@{}}
- %      \@outputJauthorlist
- %     \end{tabular}
- %    }%
- %    \vskip12\@Q
- %    {\etitlefont@LP
- %     \@etitle\par
- %    }%
- %    \vskip2\@Q
- %    {\eauthorfont@LP
- %     \parbox[t]{137.5mm}{\raggedright\baselineskip14\@Q
- %      \hyphenpenalty=10000\relax
- %      \L@outputEauthorlist}\par
- %    }%
- %    \nointerlineskip
- %    \vskip23\@Q
- %    \hfill\box\abstractbox\par
- %    \vskip3\@Q
- %    \hfill\box\keywordbox\par
- %  \end{minipage}%
- % }%
- %  \@tempdima\ht\@tempboxa
- %  \advance \@tempdima \dp\@tempboxa
- %  \divide \@tempdima \Cvs
- %  \@tempcnta=\@tempdima
- %  \advance \@tempcnta \tw@
- %  {\newpage\null
- %   \boxmaxdepth\z@
- %   \lineskiplimit\z@
- %   \lineskip\z@
- %   \parindent\z@
- %   \vbox to \@tempcnta\Cvs{%
- %    \hskip14mm\box\@tempboxa
- %   \vss}%
- %  }\par
- % \vspace{\@ADJ}%
- % \setcounter{footnote}{0}%
- %}
-
- %% LP  (electronicsletter)
- %\def\jtitlefont@LP{%
- % \fontsize{16\@JQ}{24\@Q}\bfseries\selectfont
- % \mathversion{bold}%
- %}
- %\def\etitlefont@LP{%
- % \normalsize\rmfamily\baselineskip14\@Q
- %}
- %\let\eauthorfont@LP\etitlefont@LP
-% \def\jauthorfont@LP{%
-%  \normalsize\baselineskip20\@Q
-% }
-
-% \if@letter
-%  \let\maketitle\makeLtitle
-%  \let\@aeP\relax
-%  \let\@ae\relax
-%  \let\@makePtitle\relax
-%  \let\@makeLPtitle\relax
-%  \let\@outputEauthorlist\relax
-% \fi
-
  \if@paper
   \let\L@aeP\relax
   \let\L@ae\relax
@@ -2367,14 +2337,6 @@
   \let\L@outputEauthorlist\relax
  \fi
 
- %\if@electronicsletter
- % \let\@aeP\relax
- % \let\@ae\relax
- % \let\makeLtitle\relax
- % \let\@makeLtitle\relax
- % \let\@makePtitle\relax
- % \let\@outputEauthorlist\relax
- %\fi
 
 \fi %%%
 
