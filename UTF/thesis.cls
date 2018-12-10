@@ -1039,128 +1039,6 @@
  {\TRL@aeP[#1]{#2}{#3}{#4}{#5}}%
  {\TRL@aeNP[#1]{#2}{#3}{#4}{#5}}}
 
-\def\L@ae#1#2#3#4{%
- \@tempcnta\z@
- \advance \@authorcnt \@ne
- \get@al{#4}%
- \def\al@none{0}%
- \expandafter\protected@xdef
-  \csname @jauthormembership\number\@authorcnt\endcsname{%
-   \csname #3J@member\endcsname}%
- \fmt@Jan{#1}%
- \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@\plural@affi
-   \csname @jauthormembership\number\@authorcnt\endcsname}%
- \fmt@Ean{#2}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt\endcsname{%
-   \csname #3@member\endcsname}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt*\endcsname{%
-   \csname #3@members\endcsname}%
- \global\@totalnumber=\@authorcnt
- \def\plural@affi{}%
-}
-
-\def\L@aeP#1#2#3#4[#5]{%
- \@tempcnta\z@
- \advance \@authorcnt \@ne
- \get@al{#4}%
- \def\al@none{0}%
- \@tempcnta\z@
- \get@p@al{#5}%
- \expandafter\protected@xdef
-  \csname @jauthormembership\number\@authorcnt\endcsname{%
-   \csname #3J@member\endcsname}%
- \fmt@Jan{#1}%
- \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@\plural@affi\plural@p@affi
-   \csname @jauthormembership\number\@authorcnt\endcsname
- }%
- \fmt@Ean{#2}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi\nobreak\plural@p@affi
- }%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt\endcsname{%
-   \csname #3@member\endcsname}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt*\endcsname{%
-   \csname #3@members\endcsname}%
- \global\@totalnumber=\@authorcnt
- \def\plural@affi{}%
- \def\plural@p@affi{}%
-}
-
-\def\TRL@aeNP[#1]#2#3#4#5{%
- \@tempcnta\z@
- \advance \@authorcnt \@ne
- \GetEma{#1}%
- \get@al{#5}%
- \def\al@none{0}%
- \expandafter\protected@xdef
-  \csname @jauthormembership\number\@authorcnt\endcsname{%
-   \csname #4J@member\endcsname}%
- \fmt@Jan{#2}%
- \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@\plural@affi\email@affi
-   \csname @jauthormembership\number\@authorcnt\endcsname}%
- \fmt@Ean{#3}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi\email@affi}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt\endcsname{%
-   \csname #4@member\endcsname}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt*\endcsname{%
-   \csname #4@members\endcsname}%
- \global\@totalnumber=\@authorcnt
- \def\plural@affi{}%
-}
-
-\def\TRL@aeP[#1]#2#3#4#5[#6]{%
- \@tempcnta\z@
- \advance \@authorcnt \@ne
- \GetEma{#1}%
- \get@al{#5}%
- \def\al@none{0}%
- \@tempcnta\z@
- \get@p@al{#6}%
- \expandafter\protected@xdef
-  \csname @jauthormembership\number\@authorcnt\endcsname{%
-   \csname #4J@member\endcsname}%
- \fmt@Jan{#2}%
- \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@\plural@affi\plural@p@affi\email@affi
-   \csname @jauthormembership\number\@authorcnt\endcsname
- }%
- \fmt@Ean{#3}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi\nobreak\plural@p@affi\nobreak\email@affi
- }%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt\endcsname{%
-   \csname #4@member\endcsname}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt*\endcsname{%
-   \csname #4@members\endcsname}%
- \global\@totalnumber=\@authorcnt
- \def\plural@affi{}%
- \def\plural@p@affi{}%
-}
-
-\def\rJ@member{\hskip-.25zw （正員）}
-\def\mJ@member{\hskip-.25zw （正員）}
-\def\aJ@member{\hskip-.25zw （准員）}
-%%\def\nJ@member{（非会員）}
-\def\nJ@member{}
-\def\sJ@member{\hskip-.25zw （学生員）}
-\def\hJ@member{\hskip-.25zw （名誉員）}
-\def\fJ@member{\hskip-.25zw （正員：フェロー）}
-\def\eJ@member{\hskip-.25zw （正員：シニア会員）}
-
 \def\authorentry{\@ifnextchar[% ]
  {\TR@ae}{\N@ae}}
 
@@ -1276,10 +1154,10 @@
  \def\al@none{0}%
  \fmt@Jan{#1}%
  \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@\rlap{\plural@affi}}%
+  \@authorname\kern\z@\rlap{}}%
  \fmt@Ean{#2}%
  \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi}% 
+  \@authorname\nobreak}% 
  \global\@totalnumber=\@authorcnt
  \def\plural@affi{}%
 }
@@ -1550,23 +1428,8 @@
   \fi
 }
 
-\if@tecrep
- \def\@outputJauthorlist{%
-  \fmt@Jauthorlist
-  \@authorcnt\z@
-   \loop\ifnum \@authorcnt < \@totalnumber
-    \advance \@authorcnt \@ne
-    \advance \@spcnt \@ne
-    \@ifundefined{sp\number\@spcnt}%
-     {\expandafter\def\csname sp\number\@spcnt\endcsname{\hskip\Pauthorsep}}{}%
-    \let\cr\@par
-    \protected@xdef\@tempx{\@tempx
-     \mbox{\csname @Jauthorname\number\@authorcnt\endcsname}%
-      \csname sp\number\@spcnt\endcsname}%
-   \repeat
-  \@tempx
- }
-\else
+% 名前本体
+
  \def\@outputJauthorlist{%
   \fmt@Jauthorlist
   \@authorcnt\z@
@@ -1581,22 +1444,9 @@
    \repeat
   \@tempx
  }
-\fi
 
 \def\@tempx{}
 
-\def\breakauthorline#1{%
- \@for\@breakauthor:=#1\do{%
-  \expandafter\gdef\csname @breakauthorline\@breakauthor\endcsname{\\}
- }%
-  \@authorcnt\z@
-  \loop\ifnum \@authorcnt < \@totalnumber
-   \advance \@authorcnt \@ne
-    \@ifundefined{@breakauthorline\number\@authorcnt}%
-    {\expandafter\gdef\csname @breakauthorline\number\@authorcnt\endcsname
-     {\relax}}{\relax}%
-  \repeat
-}
 
 \newcount\totalnumberm@ne
 
@@ -1671,213 +1521,6 @@
 \def\@jsubtitle{}
 \def\esubtitle#1{\gdef\@esubtitle{#1}}
 \def\@esubtitle{}
-
-\if@tecrep %%% technicalreport
- \def\maketitle{\par
-  \begingroup 
-  \ifnum \chk@alcnt < \@alcnt
-    \ieicej@warning{information of \string\affiliate\space is not assigned}%
-   \fi
-   \advance \p@alcnt -9\relax
-   \ifnum \chk@p@alcnt < \p@alcnt
-    \ieicej@warning{information of \string\paffiliate\space is not assigned}%
-   \fi
-   \def\@fnsymbol##1{\ifcase##1 \or
-    \dag\or
-    \dag\dag\or
-    \dag\dag\dag\or
-    \dag\dag\dag\dag\or
-    \dag\dag\dag\dag\dag\or
-    \dag\dag\dag\dag\dag\dag\or
-    \dag\dag\dag\dag\dag\dag\dag\or
-    \dag\dag\dag\dag\dag\dag\dag\dag\or
-    \dag\dag\dag\dag\dag\dag\dag\dag\dag\or
-    *\or {*}{*}\or {*}{*}{*}\or {*}{*}{*}{*}\or {*}{*}{*}{*}{*}\or
-     {*}{*}{*}{*}{*}{*}\else\@ctrerr\fi\relax}%
-   \def\thefootnote{\fnsymbol{footnote}}%
-   \if@twocolumn
-    \twocolumn[\@maketitle]%
-   \else
-    \ieicej@warning{I don't recommend onecolumn option,
-      ^^J\space\space because of no compatibility with technicalreport option}%
-    \@maketitle
-   \fi
-  \endgroup
-   \let\maketitle\relax
-   \let\@maketitle\relax
-%   \gdef\@affiliate{}\gdef\p@affiliate{}
-   \gdef\@jtitle{}\gdef\@etitle{}
-   \gdef\@jsubtitle{}\gdef\@esubtitle{}
-%   \let\affiliate\relax\let\paffiliate\relax
-   \@authorlist={}%
-   \let\jkeyword\relax\let\jabstract\relax
-   \let\ekeyword\relax\let\eabstract\relax
-   \let\@outputJauthorlist\relax\let\@outputEauthorlist\relax
-   \let\@aeP\relax
-   \let\@ae\relax
-   \let\TR@ae\relax
-   \let\N@ae\relax
-   \let\TR@aeP\relax
-   \let\TR@aeNP\relax
-   \let\breakauthorline\relax
-   \@authorcnt \z@
-   \loop\ifnum \the\@authorcnt < \the\@totalnumber
-    \advance \@authorcnt \@ne
-     \expandafter\let\csname @Jauthorname\number\@authorcnt\endcsname\relax
-     \expandafter\let\csname @Eauthorname\number\@authorcnt\endcsname\relax
-   \repeat
- }
-
- \def\@maketitle{%
-  \setbox\@tempboxa\vbox{%
-    \def\baselinestretch{\@titlepagebaselinestretch}%
-    \hskip8mm
-    \vtop{\footnotesize\baselineskip3mm
-     \hbox{社団法人\hskip1zw 電子情報通信学会}%
-     \hbox{THE INSTITUTE OF ELECTRONICS,}%
-     \hbox{INFORMATION AND COMMUNICATION ENGINEERS}%
-    }\hfill
-    \vtop{\footnotesize\baselineskip3mm
-     \hbox{信学技報}%
-     \hbox{TECHNICAL REPORT OF IEICE.}%
-     \hbox{}%
-    }\hskip8mm\hbox{}\par
-    \vskip\baselineskip
-    \bgroup
-     \centering
-     {\fontsize{16}{23}\selectfont
-      \@jtitle\par
-     }%
-     \vskip.25\baselineskip
-     \ifx\@jsubtitle\empty
-     \else
-      {\huge
-       \@jsubtitle\par
-      }%
-      \vskip.25\baselineskip
-     \fi
-     {\LARGE
-       \@outputJauthorlist\par
-     }%
-     \vskip.5\baselineskip
-     {\fontsize{10.5}{15}\selectfont
-%      \J@affiliate\par
-%      \Jp@affiliate\par
-      \ifx\@MailAddress\empty
-       \fmt@Ema
-       \ifx\header@ma\empty
-        \vskip.5\baselineskip
-       \else
-	E-mail:a \Mail@ddress\par
-	\vskip.5\baselineskip
-       \fi
-      \else
-       E-mail:a \@MailAddress
-       \vskip.5\baselineskip
-      \fi
-     }%
-    \egroup
-    \bgroup\large
-     \leavevmode
-     \unhbox\jabstractbox\par
-     \nointerlineskip
-     \vskip\baselineskip
-     \vskip-1zh
-     \vskip0pt
-     \leavevmode
-     \unhbox\jkeywordbox\par
-    \egroup
- %%
-    \vskip1.5\baselineskip
-    \bgroup
-     \centering
-     {\fontsize{16}{23}\selectfont
-      \@etitle\par
-     }%
-     \vskip.25\baselineskip
-     \ifx\@esubtitle\empty
-     \else
-      {\huge
-       \@esubtitle\par
-      }%
-      \vskip.25\baselineskip
-     \fi
-     {\LARGE
-      \hyphenpenalty=10000\relax
-      \@outputEauthorlist\par
-     }%
-     \vskip.5\baselineskip
-     {\fontsize{10.5}{15}\selectfont
-      %\E@affiliate\par
-      %\Ep@affiliate\par
-      \ifx\@MailAddress\empty
-       \ifx\header@ma\empty
-        \vskip.5\baselineskip
-       \else
-	E-mail:s \Mail@ddress\par
-	\vskip.5\baselineskip
-       \fi
-      \else
-       E-mail:s \@MailAddress
-       \vskip.5\baselineskip
-      \fi
-     }%
-    \egroup
-    \bgroup\large
-     \leavevmode \unhbox\eabstractbox\par
-     \nointerlineskip
-     \vskip\baselineskip
-     \vskip-1zh
-     \vskip0pt
-     \leavevmode \unhbox\ekeywordbox
-    \egroup
-    \vskip\baselineskip
-  }%
-  \@tempdima\ht\@tempboxa
-  \advance \@tempdima \dp\@tempboxa
-  \ifdim \@tempdima>\textheight
-   \ieicej@warning{The title page is too high. 
-      ^^J\space\space You can adjust the height of a title page
-      ^^J\space\space by changing \string\titlepagebaselinestretch\space 
-		      in preamble.
-      ^^J\space\space For example, \string\titlepagebaselinestretch{0.9}}%
-   {\parindent\z@
-    \vtop to \z@{%
-     \vbox to \textheight{%
-      \unvbox\@tempboxa
-     }\vss
-    }%
-   }\par
-   \clearpage
-  \else
-   \divide \@tempdima \Cvs
-   \@tempcnta=\@tempdima
-   \advance \@tempcnta \@ne
-   \vbox to \@tempcnta\Cvs{%
-    \box\@tempboxa\vss
-   }%
-  \fi
- }
-
- \newbox\jabstractbox
- \newbox\jkeywordbox
-
- \def\jabstract{\global\setbox\jabstractbox\hbox\bgroup
-   \large
-   {\bfseries あらまし\hskip1zw}\ignorespaces}
-   \def\endjabstract{\egroup}
-
- \def\jkeyword{\global\setbox\jkeywordbox\hbox\bgroup
-   \large
-   {\bfseries キーワード\hskip1zw}\ignorespaces}
- \def\endjkeyword{\egroup}
-
- \let\abstract\jabstract
- \let\endabstract\endjabstract
- \let\keyword\jkeyword
- \let\endkeyword\endjkeyword
-
-\else %%%
 
 % \if@letter
 %  \def\abstract{\parindent\z@
@@ -2103,6 +1746,7 @@
  \def\@ADJ{}
  \ADJ{0mm}
 
+%% レイアウト本体
  %% paper
  \def\@makePtitle{%
   \setbox\@tempboxa\hbox{%
@@ -2115,6 +1759,9 @@
      {\LARGE
       \@jtitle
      }\par
+     {\LARGE
+      \@etitle
+     }\par
       \vskip11\@Q
      {\Large
       \tabcolsep\Pauthorsep
@@ -2122,18 +1769,7 @@
        \@outputJauthorlist
       \end{tabular}\par
      }%
-     \nointerlineskip
-     \vskip1mm
-     \Large\baselineskip24\@Q
-     \vskip14\@Q
-      \@etitle\par
-     \vskip8\@Q
-     {\large\baselineskip21\@Q
-      \parbox[t]{137.5mm}{\raggedright\baselineskip5.25mm
-       \hyphenpenalty=10000\relax
-       \@outputEauthorlist}\par
-     }%
-     \vskip35\@Q
+     \vskip20\@Q
      \hfill\box\abstractbox\par
      \vskip4\@Q
      \hfill\box\keywordbox
@@ -2157,17 +1793,13 @@
   \setcounter{footnote}{0}%
  }
 
- \if@paper
   \let\L@aeP\relax
   \let\L@ae\relax
   \let\makeLtitle\relax
   \let\@makeLtitle\relax
   \let\@makeLPtitle\relax
   \let\L@outputEauthorlist\relax
- \fi
 
-
-\fi %%%
 
 \setcounter{secnumdepth}{5}
 \newcounter{section}
