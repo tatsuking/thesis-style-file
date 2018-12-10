@@ -4,20 +4,7 @@
 %%   and Communication Engineers by ULS and Company, 1999-2018.
 %% E-mail: ieice-div@uls.co.jp, teppei@uls.co.jp
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesClass{ieicej}
-%%[1999/04/28 v1.0 for Transactions of IEICE]
-%%[1999/07/12 v1.0 new release for Transactions of IEICE]
-%%[2000/11/02 v1.1 for Transactions of IEICE]
-%%[2002/02/12 v1.2 for Transactions of IEICE]
-%%[2003/10/31 v1.3 for Transactions of IEICE]
-%%[2006/05/08 v1.4 for Transactions of IEICE]
-%%[2008/05/13 v1.5 for Transactions of IEICE]
-%%[2009/11/03 v1.6 for Transactions of IEICE]
-%%[2010/04/05 v1.6a for Transactions of IEICE]
-%%[2013/01/31 v2.0-prerelese1 for Transactions of IEICE]
-%%[2013/05/15 v2.0-prerelese2 for Transactions of IEICE]
-%%[2013/06/11 v2.0 for Transactions of IEICE]
-%%[2015/11/14 v3.0 for Transactions of IEICE]
+\ProvidesClass{nitkit_D}
   [2018/05/08 v3.1 for Transactions of IEICE]
 
 \newif\if@enable@uptex \@enable@uptexfalse
@@ -42,8 +29,6 @@
 \def\kenc@JTn{\if@enable@uptex JT2\else JT1\fi}
 
 \newif\if@paper \@papertrue
-\newif\if@electronicsletter \@electronicsletterfalse
-\newif\if@letter \@letterfalse
 \newif\if@tecrep \@tecrepfalse
 
 \DeclareOption{paper}{%
@@ -53,23 +38,11 @@
 \def\hd@type{卒\hskip1zw 業\hskip1zw 論\hskip1zw 文}\gdef\@type{P}
 \def\@type{P}% paper
 
-%\def\ieicejline@warning{\ClassWarning{ieicej}}
 \def\ieicej@warning{\ClassWarningNoLine{ieicej}}
 
-%\newif\if@usejistfm \@usejistfmfalse
-%\DeclareOption{usejistfm}{\@usejistfmtrue}
 
 \newif\if@Proof \@Prooffalse
 \DeclareOption{Proof}{\@Prooftrue}
-\newif\if@cameraready \@camerareadyfalse
-\DeclareOption{cameraready}{\@camerareadytrue}
-
-%% for 2.1.4 and non pLaTeX2e compatibility
-%\@ifundefined{hour}{}{%
-% \hour\time \divide\hour by 60\relax
-% \@tempcnta\hour \multiply\@tempcnta 60\relax
-% \minute\time \advance\minute-\@tempcnta
-%}
 
 \newcounter{@paper}
 \newcommand{\@ptsize}{}
@@ -154,7 +127,7 @@
 \else
 \DeclareFontShape{JY2}{mc}{m}{n}{%
   <5>     s*[0.995848]upjisr-h %  7Q
-  <6>     s*\if@letter [0.94843]\else [1.06698]\fi upjisr-h %  8Q/9Q
+  <6>     s*[1.06698]upjisr-h %  8Q/9Q
   <7>     s*[1.016171]upjisr-h % 10Q
   <8>     s*[0.978065]upjisr-h % 11Q
   <9>     s*[0.948427]upjisr-h % 12Q
@@ -169,7 +142,7 @@
 }{}
 \DeclareFontShape{JY2}{gt}{m}{n}{%
   <5>     s*[0.995848]upjisg-h %  7Q
-  <6>     s*\if@letter [0.94843]\else [1.06698]\fi upjisg-h %  8Q/9Q
+  <6>     s*[1.06698]upjisg-h %  8Q/9Q
   <7>     s*[1.016171]upjisg-h % 10Q
   <8>     s*[0.978065]upjisg-h % 11Q
   <9>     s*[0.948427]upjisg-h % 12Q
@@ -185,7 +158,7 @@
 %%
 \DeclareFontShape{JT2}{mc}{m}{n}{%
   <5>     s*[0.995848]upjisr-v %  7Q
-  <6>     s*\if@letter [0.94843]\else [1.06698]\fi upjisr-v %  8Q/9Q
+  <6>     s*[1.06698]upjisr-v %  8Q/9Q
   <7>     s*[1.016171]upjisr-v % 10Q
   <8>     s*[0.978065]upjisr-v % 11Q
   <9>     s*[0.948427]upjisr-v % 12Q
@@ -200,7 +173,7 @@
 }{}
 \DeclareFontShape{JT2}{gt}{m}{n}{%
   <5>     s*[0.995848]upjisg-v %  7Q
-  <6>     s*\if@letter [0.94843]\else [1.06698]\fi upjisg-v %  8Q/9Q
+  <6>     s*[1.06698]upjisg-v %  8Q/9Q
   <7>     s*[1.016171]upjisg-v % 10Q
   <8>     s*[0.978065]upjisg-v % 11Q
   <9>     s*[0.948427]upjisg-v % 12Q
@@ -229,7 +202,7 @@
 \else
 \DeclareFontShape{JY1}{mc}{m}{n}{%
   <5>     sfixed * [5.1748] jis %  7Q
-  <6>     sfixed * \if@letter [5.9141]\else [6.6533]\fi jis %  8Q or 9Q
+  <6>     sfixed * [6.6533] jis %  8Q or 9Q
   <7>     sfixed * [7.3926] jis % 10Q
   <8>     sfixed * [8.1318] jis % 11Q
   <9>     sfixed * [8.8711] jis % 12Q
@@ -244,7 +217,7 @@
 }{}
 \DeclareFontShape{JY1}{gt}{m}{n}{%
   <5>     sfixed * [5.1748] jisg
-  <6>     sfixed * \if@letter [5.9141]\else [6.6533]\fi jisg
+  <6>     sfixed * [6.6533] jisg
   <7>     sfixed * [7.3926] jisg
   <8>     sfixed * [8.1318] jisg
   <9>     sfixed * [8.8711] jisg
@@ -260,7 +233,7 @@
 %%
 \DeclareFontShape{JT1}{mc}{m}{n}{%
   <5>     sfixed * [5.1748] jis-v %  7Q
-  <6>     sfixed * \if@letter [5.9141]\else [6.6533]\fi jis-v %  8Q or 9Q
+  <6>     sfixed * [6.6533] jis-v %  8Q or 9Q
   <7>     sfixed * [7.3926] jis-v % 10Q
   <8>     sfixed * [8.1318] jis-v % 11Q
   <9>     sfixed * [8.8711] jis-v % 12Q
@@ -275,7 +248,7 @@
 }{}
 \DeclareFontShape{JT1}{gt}{m}{n}{%
   <5>     sfixed * [5.1748] jisg-v
-  <6>     sfixed * \if@letter [5.9141]\else [6.6533]\fi jisg-v
+  <6>     sfixed * [6.6533] jisg-v
   <7>     sfixed * [7.3926] jisg-v
   <8>     sfixed * [8.1318] jisg-v
   <9>     sfixed * [8.8711] jisg-v
@@ -678,15 +651,9 @@
  \setlength\Cvs{\baselineskip}
  \setlength\Chs{\wd0}
 
- \if@letter
-  \newcommand{\Small}{\@setfontsize\Small\@viiipt{18\@Q}%
-   \kanjiskip\z@ \@plus .1zw \@minus .05zw
-  }
- \else
   \newcommand{\Small}{\@setfontsize\Small\@viiipt{16\@Q}%
    \kanjiskip\z@ \@plus .1zw \@minus .05zw
   }
- \fi
 
  \newcommand{\small}{%
   \@setfontsize\small\@viipt{13\@Q}%
@@ -897,12 +864,7 @@
 \def\ft@year{}
 \def\@no{}
 
-\def\typeofletter#1{\gdef\@typeofletter{#1}}
-\def\@typeofletter{}
-\def\Sissue#1{\gdef\@Sissue{#1}}
-\def\@Sissue{}
-
-\if@letter\typeofletter{研究速報}\fi
+%\if@letter\typeofletter{研究速報}\fi
 \field{X}
 \no{xx}
 \vol{x}
@@ -914,26 +876,6 @@
 %% P (paper)
 \def\t@typefont@P{%
  \Huge\baselineskip\z@ %% 24\@JQ
-}
-%% LP (electronicsletter)
-\def\t@typefont@LP{%
- \LARGE\baselineskip\z@ %% 18\@JQ
-}
-%% L (letter)
-\let\t@typefont@L\huge
-\def\head@type#1{%% 20\@JQ 平2
- \if@cameraready
-  %\@ifundefined{PSTricksLoaded}{\scalebox{1}[0.8]{\t@typefont@L #1}}
-  % {\def\tmp@scalebox##1{\pst@makebox{\@scalebox{##1}}}%
-  %  \ifx\tmp@scalebox\scalebox
-  %   \scalebox{1 0.8}{\t@typefont@L #1}%
-  %  \else
-  \scalebox{1}[0.8]{\t@typefont@L #1}%
-  %  \fi
-  % }%
- \else
-  {\t@typefont@L #1}%
- \fi
 }
 
  
@@ -959,21 +901,21 @@
 }
 
 \def\odd@header{%
- \if@letter
-  {\Small\head@font レ\hskip1zw タ\hskip1zw ー}%
- \else
-  \if@electronicsletter
-   {\Small\head@font レ\hskip1zw タ\hskip1zw ー}%
-  \else
-   \setbox\@tempboxb\hbox{\Small\head@font\def\\{\unskip\ignorespaces}%
-   \hd@type ／\kern\z@\hd@title}%
-    \ifdim \wd\@tempboxb > \textwidth
-     \ieicej@warning{header is too long. make it shorter. 
-      ^^J\@spaces For example, \string\title[header title]{title}}%
-    \fi
-   \box\@tempboxb
-  \fi
- \fi
+% \if@letter
+%  {\Small\head@font レ\hskip1zw タ\hskip1zw ー}%
+% \else
+%  \if@electronicsletter
+%   {\Small\head@font レ\hskip1zw タ\hskip1zw ー}%
+%  \else
+%   \setbox\@tempboxb\hbox{\Small\head@font\def\\{\unskip\ignorespaces}%
+%   \hd@type ／\kern\z@\hd@title}%
+%    \ifdim \wd\@tempboxb > \textwidth
+%     \ieicej@warning{header is too long. make it shorter. 
+%      ^^J\@spaces For example, \string\title[header title]{title}}%
+%    \fi
+%   \box\@tempboxb
+%  \fi
+% \fi
 }
 
 \def\ps@empty{%
@@ -1318,18 +1260,18 @@
 }
 
 \if@tecrep\else
- \if@letter
-  %\font\EA@font=cmr5
-  \def\EA@font{\normalfont\fontsize{5}{\z@}\selectfont}
- \else
-  \if@electronicsletter
+% \if@letter
+%  %\font\EA@font=cmr5
+%  \def\EA@font{\normalfont\fontsize{5}{\z@}\selectfont}
+% \else
+%  \if@electronicsletter
    %\font\EA@font=cmr6
-   \def\EA@font{\normalfont\fontsize{6}{\z@}\selectfont}
-  \else
+%   \def\EA@font{\normalfont\fontsize{6}{\z@}\selectfont}
+%  \else
    %\font\EA@font=cmr7
    \def\EA@font{\normalfont\fontsize{7}{\z@}\selectfont}
-  \fi
- \fi
+%  \fi
+% \fi
 \fi
 
 \def\email@affi{%
@@ -1470,16 +1412,16 @@
 
 \newcount\@spcnt
 \newcount\alignorder
-\if@letter
- \alignorder=2\relax
-\else
+%\if@letter
+% \alignorder=2\relax
+%\else
  \if@paper
   \alignorder=4\relax
  \else
   \alignorder=3\relax
 %%\alignorder=4\relax
  \fi
-\fi
+%\fi
 
 \if@tecrep
  \alignorder=5\relax
@@ -2063,15 +2005,15 @@
 
 \else %%%
 
- \if@letter
-  \def\abstract{\parindent\z@
-   \hspace*{1zw}{\bfseries あらまし\hskip1zw}\ignorespaces}
-  \def\endabstract{\par\ignorespaces}
+% \if@letter
+%  \def\abstract{\parindent\z@
+%   \hspace*{1zw}{\bfseries あらまし\hskip1zw}\ignorespaces}
+%  \def\endabstract{\par\ignorespaces}
 
-  \def\keyword{\parindent\z@
-   \hspace*{1zw}{\bfseries キーワード\hskip1zw}\ignorespaces}
-  \def\endkeyword{\par}
- \else
+%  \def\keyword{\parindent\z@
+%   \hspace*{1zw}{\bfseries キーワード\hskip1zw}\ignorespaces}
+%  \def\endkeyword{\par}
+% \else
   \newbox\abstractbox
   \newbox\keywordbox
   \def\abstract{\global\setbox\abstractbox=\hbox\bgroup
@@ -2083,7 +2025,7 @@
    \begin{minipage}[t]{137.5mm}%11Q 50zw
     \Small\hskip1zw{\bfseries キーワード\hskip1zw}\ignorespaces}
   \def\endkeyword{\end{minipage}\egroup}
- \fi
+ %\fi
 
  \let\jabstract\abstract
  \let\endjabstract\endabstract
@@ -2342,79 +2284,79 @@
  }
 
  %% electronicsletter
- \def\@makeLPtitle{%
-  \setbox\@tempboxa\hbox{%
-   \begin{minipage}{137.5mm}% 151.5 - 14
-    \vskip5mm
-    \parindent\z@
-    \tabcolsep\z@
-    \linethickness{0.1mm}%
-     {\jtitlefont@LP
-      \@jtitle\par
-     }%
-     \vskip11\@Q
-     {\jauthorfont@LP
-      \tabcolsep\LPauthorsep
-      \begin{tabular}{@{}llll@{}}
-       \@outputJauthorlist
-      \end{tabular}
-     }%
-     \vskip12\@Q
-     {\etitlefont@LP
-      \@etitle\par
-     }%
-     \vskip2\@Q
-     {\eauthorfont@LP
-      \parbox[t]{137.5mm}{\raggedright\baselineskip14\@Q
-       \hyphenpenalty=10000\relax
-       \L@outputEauthorlist}\par
-     }%
-     \nointerlineskip
-     \vskip23\@Q
-     \hfill\box\abstractbox\par
-     \vskip3\@Q
-     \hfill\box\keywordbox\par
-   \end{minipage}%
-  }%
-   \@tempdima\ht\@tempboxa
-   \advance \@tempdima \dp\@tempboxa
-   \divide \@tempdima \Cvs
-   \@tempcnta=\@tempdima
-   \advance \@tempcnta \tw@
-   {\newpage\null
-    \boxmaxdepth\z@
-    \lineskiplimit\z@
-    \lineskip\z@
-    \parindent\z@
-    \vbox to \@tempcnta\Cvs{%
-     \hskip14mm\box\@tempboxa
-    \vss}%
-   }\par
-  \vspace{\@ADJ}%
-  \setcounter{footnote}{0}%
- }
+ %\def\@makeLPtitle{%
+ % \setbox\@tempboxa\hbox{%
+ %  \begin{minipage}{137.5mm}% 151.5 - 14
+ %   \vskip5mm
+ %   \parindent\z@
+ %   \tabcolsep\z@
+ %   \linethickness{0.1mm}%
+ %    {\jtitlefont@LP
+ %     \@jtitle\par
+ %    }%
+ %    \vskip11\@Q
+ %    {\jauthorfont@LP
+ %     \tabcolsep\LPauthorsep
+ %     \begin{tabular}{@{}llll@{}}
+ %      \@outputJauthorlist
+ %     \end{tabular}
+ %    }%
+ %    \vskip12\@Q
+ %    {\etitlefont@LP
+ %     \@etitle\par
+ %    }%
+ %    \vskip2\@Q
+ %    {\eauthorfont@LP
+ %     \parbox[t]{137.5mm}{\raggedright\baselineskip14\@Q
+ %      \hyphenpenalty=10000\relax
+ %      \L@outputEauthorlist}\par
+ %    }%
+ %    \nointerlineskip
+ %    \vskip23\@Q
+ %    \hfill\box\abstractbox\par
+ %    \vskip3\@Q
+ %    \hfill\box\keywordbox\par
+ %  \end{minipage}%
+ % }%
+ %  \@tempdima\ht\@tempboxa
+ %  \advance \@tempdima \dp\@tempboxa
+ %  \divide \@tempdima \Cvs
+ %  \@tempcnta=\@tempdima
+ %  \advance \@tempcnta \tw@
+ %  {\newpage\null
+ %   \boxmaxdepth\z@
+ %   \lineskiplimit\z@
+ %   \lineskip\z@
+ %   \parindent\z@
+ %   \vbox to \@tempcnta\Cvs{%
+ %    \hskip14mm\box\@tempboxa
+ %   \vss}%
+ %  }\par
+ % \vspace{\@ADJ}%
+ % \setcounter{footnote}{0}%
+ %}
 
  %% LP  (electronicsletter)
- \def\jtitlefont@LP{%
-  \fontsize{16\@JQ}{24\@Q}\bfseries\selectfont
-  \mathversion{bold}%
- }
- \def\etitlefont@LP{%
-  \normalsize\rmfamily\baselineskip14\@Q
- }
- \let\eauthorfont@LP\etitlefont@LP
- \def\jauthorfont@LP{%
-  \normalsize\baselineskip20\@Q
- }
+ %\def\jtitlefont@LP{%
+ % \fontsize{16\@JQ}{24\@Q}\bfseries\selectfont
+ % \mathversion{bold}%
+ %}
+ %\def\etitlefont@LP{%
+ % \normalsize\rmfamily\baselineskip14\@Q
+ %}
+ %\let\eauthorfont@LP\etitlefont@LP
+% \def\jauthorfont@LP{%
+%  \normalsize\baselineskip20\@Q
+% }
 
- \if@letter
-  \let\maketitle\makeLtitle
-  \let\@aeP\relax
-  \let\@ae\relax
-  \let\@makePtitle\relax
-  \let\@makeLPtitle\relax
-  \let\@outputEauthorlist\relax
- \fi
+% \if@letter
+%  \let\maketitle\makeLtitle
+%  \let\@aeP\relax
+%  \let\@ae\relax
+%  \let\@makePtitle\relax
+%  \let\@makeLPtitle\relax
+%  \let\@outputEauthorlist\relax
+% \fi
 
  \if@paper
   \let\L@aeP\relax
@@ -2425,14 +2367,14 @@
   \let\L@outputEauthorlist\relax
  \fi
 
- \if@electronicsletter
-  \let\@aeP\relax
-  \let\@ae\relax
-  \let\makeLtitle\relax
-  \let\@makeLtitle\relax
-  \let\@makePtitle\relax
-  \let\@outputEauthorlist\relax
- \fi
+ %\if@electronicsletter
+ % \let\@aeP\relax
+ % \let\@ae\relax
+ % \let\makeLtitle\relax
+ % \let\@makeLtitle\relax
+ % \let\@makePtitle\relax
+ % \let\@outputEauthorlist\relax
+ %\fi
 
 \fi %%%
 
@@ -2582,17 +2524,17 @@
  \def\sec@font{\bfseries\KFsec\mathversion{bold}\baselineskip19\@Q}
 \fi
 
-\if@letter
- \newcommand{\section}{\@startsection{section}{1}{1zw}%
-   {\z@}% \@plus.1mm \@minus.1mm
-   {\z@}% \@plus.1mm \@minus.1mm
-   {\reset@font\normalsize\bfseries\mathversion{bold}}}
-\else
+%\if@letter
+% \newcommand{\section}{\@startsection{section}{1}{1zw}%
+%   {\z@}% \@plus.1mm \@minus.1mm
+%   {\z@}% \@plus.1mm \@minus.1mm
+%   {\reset@font\normalsize\bfseries\mathversion{bold}}}
+%\else
  \newcommand{\section}{\@startsection{section}{1}{1zw}%
    {.5\Cvs}% \@plus.1mm \@minus.1mm
    {.5\Cvs}% \@plus.1mm \@minus.1mm
    {\reset@font\Large\sec@font}}
-\fi
+%\fi
  \newcommand{\subsection}{\@startsection{subsection}{2}{1zw}%
    {\z@}% \@plus.1mm \@minus.1mm
    {\z@}% \@plus.1mm \@minus.1mm
@@ -2614,7 +2556,8 @@
  \renewcommand{\section}{\@startsection{section}{1}{\z@}
   {.5\Cvs}% \@plus.1mm \@minus.1mm
   {.5\Cvs}% \@plus.1mm \@minus.1mm
-  {\if@letter\centering\bfseries\else\centering\Large\sec@font\fi}}%
+  %{\if@letter\centering\bfseries\else\centering\Large\sec@font\fi}}%
+  {\centering\Large\sec@font}}%
  \section*{付録}
   \renewcommand{\section}{\@startsection{section}{1}{1zw}
    {\z@}% \@plus.1mm \@minus.1mm
@@ -3757,10 +3700,10 @@
  \pagestyle{plain}
 \else
  \AtEndDocument{%
-  \if@letter
-   \nopagebreak
-   {\small\@uketsuke}\par
-  \fi
+  %\if@letter
+  % \nopagebreak
+  % {\small\@uketsuke}\par
+  %\fi
   %%
   \clearpage
   \addtocounter{page}{-1}%
@@ -3768,8 +3711,8 @@
    {\string\newlabel{ieicej@lastpage}{{}{\thepage}}}%
   \addtocounter{page}{1}%
   %%
-  \if@cameraready
-  \else
+%  \if@cameraready
+%  \else
    \onecolumn
    \thispagestyle{empty}
    \ifvoid\eabstractbox\else
@@ -3783,7 +3726,7 @@
    \fi
    %\vskip2\baselineskip
    %\@Membership@Number
-  \fi
+%  \fi
  }
  \pagestyle{IEICEJ}
 \fi

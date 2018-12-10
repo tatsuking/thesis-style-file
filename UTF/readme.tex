@@ -68,10 +68,6 @@
 
 \begin{document}
 \makeatletter
-\if@letter
-\makeatother
-\maketitle
-\fi
 \begin{abstract}
 電子制御工学科卒業論文用p\LaTeXe クラスファイルの使い方・および卒業論文の書き方を説明します．
 本クラスファイルに基づく記述の仕方，クラスファイル使用上の注意点，
@@ -86,11 +82,7 @@
 %\begin{ekeyword}
 %\end{ekeyword}
 \makeatletter
-\if@letter
-\makeatother
-\else
- \maketitle
-\fi
+\maketitle
 
 \section{まえがき}
 
@@ -2115,7 +2107,6 @@ Options という枠の中に Horizontal centering と Vertical centering とい
 %\texttt{uplatex}によるコンパイルに対応した．
 
 \makeatletter
-\if@letter\else
 \makeatother
 \begin{biography}
 \profile{m}{電子 花子}{%
@@ -2136,7 +2127,6 @@ ABC学会会員．
 現在ATT日本研究所に所属．
 }
 \end{biography}
-\fi
 
 \end{document}
 
