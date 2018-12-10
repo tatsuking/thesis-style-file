@@ -1028,17 +1028,6 @@
  \fi
 }
 
-\def\Lauthorentry{\@ifnextchar[%% ]
- {\TRL@ae}{\NL@ae}}
-
-\def\NL@ae#1#2#3#4{\@ifnextchar[% ]
- {\L@aeP{#1}{#2}{#3}{#4}}%
- {\L@ae{#1}{#2}{#3}{#4}}}
-
-\def\TRL@ae[#1]#2#3#4#5{\@ifnextchar[% ]
- {\TRL@aeP[#1]{#2}{#3}{#4}{#5}}%
- {\TRL@aeNP[#1]{#2}{#3}{#4}{#5}}}
-
 \def\authorentry{\@ifnextchar[% ]
  {\TR@ae}{\N@ae}}
 
@@ -1046,9 +1035,9 @@
  {\@aeP{#1}{#2}{#3}}%
  {\@ae{#1}{#2}{#3}}}
 
-\def\TR@ae[#1]#2#3#4{\@ifnextchar[% ]
- {\TR@aeP[#1]{#2}{#3}{#4}}%
- {\TR@aeNP[#1]{#2}{#3}{#4}}}
+\def\TR@ae[#1]#2{\@ifnextchar[% ]
+ {\TR@aeP[#1]{#2}}%
+ {\TR@aeNP[#1]{#2}}}
 
 \def\fmt@Jan#1{%
  \expandafter\def\csname EICMN@name\number\@authorcnt\endcsname{#1}%
@@ -1209,129 +1198,56 @@
  \@tempcnta\z@
  \advance \@authorcnt \@ne
  \GetEma{#1}
- \get@al{#4}%
+% \get@al{#4}%
  \def\al@none{0}%
  \fmt@Jan{#2}%
  \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
   \@authorname\kern\z@\rlap{\plural@affi\email@affi}%
  }%
- \fmt@Ean{#3}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi\nobreak\email@affi
- }% 
+ %\fmt@Ean{#3}%
+ %\expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
+ % \@authorname\nobreak\plural@affi\nobreak\email@affi
+ %}% 
  \global\@totalnumber=\@authorcnt
  \def\plural@affi{}%
 }
 
-\def\TR@aeP[#1]#2#3#4[#5]{%
+\def\TR@aeP[#1]#2{%
  \@tempcnta\z@
  \advance \@authorcnt \@ne
  \GetEma{#1}%
- \get@al{#4}%
+ %\get@al{#4}%
  \def\al@none{0}%
  \@tempcnta\z@
- \get@p@al{#5}%
+% \get@p@al{#5}%
  \fmt@Jan{#2}%
  \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
   \@authorname\kern\z@\rlap{\plural@affi\plural@p@affi\email@affi}%
  }%
- \fmt@Ean{#3}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi\nobreak\plural@p@affi\nobreak\email@affi
- }%
+ %\fmt@Ean{#3}%
+ %\expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
+ % \@authorname\nobreak\plural@affi\nobreak\plural@p@affi\nobreak\email@affi
+ %}%
  \global\@totalnumber=\@authorcnt
  \def\plural@affi{}%
  \def\plural@p@affi{}%
 }
 
-\if@tecrep
- \bgroup
-  \catcode`@=12\relax
-  \gdef\GetEma#1{%
-   \def\tempema{#1}%
-   \ifx\tempema\empty
-    \def\tempAnDn{n n.n.n}%
-   \else
-    \def\tempa##1@##2\nil{##1 ##2}% 
-    \edef\tempAnDn{\expandafter\tempa\tempema\nil}%
-   \fi
-   \ProcessEma
-  }%
- \egroup
-
- \newcount\tn@dn
-
- \def\ProcessEma{%
-  \def\tempa##1 ##2\@nil{%
-   \@ifundefined{##2}
-    {\expandafter\gdef\csname ##2\endcsname{##1}%
-     \advance\tn@dn\@ne
-     \expandafter\def\csname adrs\number\tn@dn\endcsname{##2}%
-    }%
-    {\expandafter\protected@xdef
-     \csname ##2\endcsname{\csname ##2\endcsname,##1}%
-    }%
-  }% 
-  \def\get@AnDn{\expandafter\tempa\tempAnDn\@nil}\get@AnDn
- }
-
- \def\fmt@Ema{%
-  \@tempcntb\z@
-  \loop
-   \ifnum\@tempcntb<\tn@dn
-    \advance\@tempcntb\@ne
-    \def\ad@none{n.n.n}%
-    \expandafter\ifx\csname adrs\number\@tempcntb\endcsname \ad@none
-    \else
-     \protected@edef\tmp@An{%
-      \expandafter\csname \csname adrs\number\@tempcntb\endcsname \endcsname}%
-     \@tempcnta\z@
-     \@for\get@An:=\tmp@An\do{%
-      \global\advance \@tempcnta \@ne
-     }%
-     \protected@xdef\Mail@ddress{%
-      \ifx\Mail@ddress\empty\else\Mail@ddress,\ \fi
-       \ifnum\@totalnumber=\@ne
-        \if@affinone\else
-         $\ieicej@fnsymbol{\the\@tempcntb}$%
-        \fi
-       \else
-        $\ieicej@fnsymbol{\the\@tempcntb}$%
-       \fi
-       \ifnum\@tempcnta=\@ne
-	\expandafter\csname \csname adrs\number\@tempcntb\endcsname \endcsname
-	 @\csname adrs\number\@tempcntb\endcsname
-       \else
-	\{%% \protect
-	 \expandafter\csname \csname adrs\number\@tempcntb\endcsname \endcsname
-	  \}%
-	 @\csname adrs\number\@tempcntb\endcsname
-       \fi
-     }%
-     \gdef\header@ma{E-mail:}%
-    \fi
-  \repeat
- }
- \def\Mail@ddress{}
- \def\header@ma{}
-
- \def\MailAddress#1{\gdef\@MailAddress{#1}}
- \def\@MailAddress{}
-\else
- \setcounter{enumiv}{15}%
+% \setcounter{enumiv}{15}%
  \def\GetEma#1{%
-  \def\@tempEma{#1}%
+%  \def\@tempEma{#1}%
   \ifx\@tempEma\empty\else
-   \global\advance \c@enumiv \@ne
-   \let\@fnsymbol\ieicej@fnsymbol
-   \protected@xdef\@Emadrs{\@Emadrs
-    %\protect\footnotetext[\the\c@enumiv]{E-mail: \protect\texttt{#1}}%
-    \protect\footnotetext[\the\c@enumiv]{E-maila: #1}%
+%   \global\advance \c@enumiv \@ne
+%   \let\@fnsymbol\ieicej@fnsymbol
+   \protected@xdef\@Teacher{\@Teacher
+%    \protect\footnotetext[\the\c@enumiv]{E-mail: \protect\texttt{#1}}%
+    {（指導教員　#1）}%
    }%
   \fi
  }%
- \def\@Emadrs{}
-\fi
+ \def\@Teacher{}
+
+% \def\@Emadrs{}
 
 \newcount\@spcnt
 \newcount\alignorder
@@ -1437,12 +1353,14 @@
     \advance \@authorcnt \@ne
     \advance \@spcnt \@ne
     \@ifundefined{sp\number\@spcnt}%
-     {\expandafter\def\csname sp\number\@spcnt\endcsname{&}}{}%
+     {\expandafter\def\csname sp\number\@spcnt\endcsname{~}}{}%
     \protected@xdef\@tempx{\@tempx
      \csname @Jauthorname\number\@authorcnt\endcsname
      \csname sp\number\@spcnt\endcsname}%
    \repeat
   \@tempx
+
+   \@Teacher
  }
 
 \def\@tempx{}
@@ -1494,21 +1412,13 @@
 \newbox\eabstractbox
 \newbox\ekeywordbox
 \def\eabstract{\global\setbox\eabstractbox=\hbox\bgroup
- \if@tecrep
-  \large
- \else
   \normalsize
- \fi
   {\bfseries Abstract\hskip1zw}\ignorespaces}
 \def\endeabstract{\egroup}
 
 \def\ekeyword{\global\setbox\ekeywordbox=\hbox\bgroup
- \if@tecrep
-  \large
- \else
-  \normalsize
- \fi
-  {\bfseries Key words\hskip1zw}\ignorespaces}
+\normalsize
+{\bfseries Key words\hskip1zw}\ignorespaces}
 \def\endekeyword{\egroup}
 
 \newdimen\Pauthorsep
@@ -1522,15 +1432,6 @@
 \def\esubtitle#1{\gdef\@esubtitle{#1}}
 \def\@esubtitle{}
 
-% \if@letter
-%  \def\abstract{\parindent\z@
-%   \hspace*{1zw}{\bfseries あらまし\hskip1zw}\ignorespaces}
-%  \def\endabstract{\par\ignorespaces}
-
-%  \def\keyword{\parindent\z@
-%   \hspace*{1zw}{\bfseries キーワード\hskip1zw}\ignorespaces}
-%  \def\endkeyword{\par}
-% \else
   \newbox\abstractbox
   \newbox\keywordbox
   \def\abstract{\global\setbox\abstractbox=\hbox\bgroup
@@ -1542,7 +1443,7 @@
    \begin{minipage}[t]{137.5mm}%11Q 50zw
     \Small\hskip1zw{\bfseries キーワード\hskip1zw}\ignorespaces}
   \def\endkeyword{\end{minipage}\egroup}
- %\fi
+
 
  \let\jabstract\abstract
  \let\endjabstract\endabstract
@@ -1623,7 +1524,7 @@
       %\@affiliate
       %\p@affiliate
       \@tempswatrue
-      \@Emadrs
+      %\@Emadrs
      \end{minipage}\par
      \vskip23\@Q \@plus 18\@Q \@minus 1\@Q
     \thispagestyle{ieicej}%
@@ -1718,7 +1619,7 @@
    %\@affiliate
    %\p@affiliate
    \@tempswatrue
-   \@Emadrs
+   %\@Emadrs
   \endgroup
    \let\maketitle\relax
    \expandafter\let\csname @make\@type title\endcsname\relax
