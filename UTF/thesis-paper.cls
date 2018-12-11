@@ -4,20 +4,7 @@
 %%   and Communication Engineers by ULS and Company, 1999-2018.
 %% E-mail: ieice-div@uls.co.jp, teppei@uls.co.jp
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesClass{ieicej}
-%%[1999/04/28 v1.0 for Transactions of IEICE]
-%%[1999/07/12 v1.0 new release for Transactions of IEICE]
-%%[2000/11/02 v1.1 for Transactions of IEICE]
-%%[2002/02/12 v1.2 for Transactions of IEICE]
-%%[2003/10/31 v1.3 for Transactions of IEICE]
-%%[2006/05/08 v1.4 for Transactions of IEICE]
-%%[2008/05/13 v1.5 for Transactions of IEICE]
-%%[2009/11/03 v1.6 for Transactions of IEICE]
-%%[2010/04/05 v1.6a for Transactions of IEICE]
-%%[2013/01/31 v2.0-prerelese1 for Transactions of IEICE]
-%%[2013/05/15 v2.0-prerelese2 for Transactions of IEICE]
-%%[2013/06/11 v2.0 for Transactions of IEICE]
-%%[2015/11/14 v3.0 for Transactions of IEICE]
+\ProvidesClass{nitkit_D}
   [2018/05/08 v3.1 for Transactions of IEICE]
 
 \newif\if@enable@uptex \@enable@uptexfalse
@@ -42,45 +29,21 @@
 \def\kenc@JTn{\if@enable@uptex JT2\else JT1\fi}
 
 \newif\if@paper \@papertrue
-\newif\if@electronicsletter \@electronicsletterfalse
-\newif\if@letter \@letterfalse
 \newif\if@tecrep \@tecrepfalse
 
-\DeclareOption{paper}{%
- \gdef\hd@type{論文}\gdef\tl@type{a論\hskip1zw 文}\gdef\@type{P}}
-\DeclareOption{invited}{\@papertrue
- \gdef\hd@type{招待論文}\gdef\tl@type{招待論文}\gdef\@type{P}}
-\DeclareOption{comment}{\@papertrue
- \gdef\hd@type{解説論文}\gdef\tl@type{解説論文}\gdef\@type{P}}
-\DeclareOption{survey}{\@papertrue
- \gdef\hd@type{サーベイ論文}\gdef\tl@type{サーベイ論文}\gdef\@type{P}}
-\DeclareOption{letter}{\@lettertrue\@paperfalse
- \gdef\hd@type{レター}\gdef\tl@type{\@typeofletter}\gdef\@type{L}}
-\DeclareOption{electronicsletter}{\@electronicslettertrue\@paperfalse
- \gdef\hd@type{レター}\gdef\tl@type{レター}\gdef\@type{LP}}
-%\DeclareOption{technicalreport}{\@tecreptrue}
+\DeclareOption{paper}{
+ \gdef\hd@type{論文}\gdef\tl@type{a卒\hskip1zw 業\hskip1zw 論\hskip1zw 文}\gdef\@type{P}}
 
-\def\tl@type{論\hskip1zw 文}
-\def\hd@type{論文}
+\def\tl@type{b卒\hskip1zw 業\hskip1zw 論\hskip1zw 文}\gdef\@type{P}
+\def\hd@type{b卒\hskip1zw 業\hskip1zw 論\hskip1zw 文}\gdef\@type{P}
 \def\@type{P}% paper
 
-%\def\ieicejline@warning{\ClassWarning{ieicej}}
+
 \def\ieicej@warning{\ClassWarningNoLine{ieicej}}
 
-%\newif\if@usejistfm \@usejistfmfalse
-%\DeclareOption{usejistfm}{\@usejistfmtrue}
 
 \newif\if@Proof \@Prooffalse
 \DeclareOption{Proof}{\@Prooftrue}
-\newif\if@cameraready \@camerareadyfalse
-\DeclareOption{cameraready}{\@camerareadytrue}
-
-%% for 2.1.4 and non pLaTeX2e compatibility
-%\@ifundefined{hour}{}{%
-% \hour\time \divide\hour by 60\relax
-% \@tempcnta\hour \multiply\@tempcnta 60\relax
-% \minute\time \advance\minute-\@tempcnta
-%}
 
 \newcounter{@paper}
 \newcommand{\@ptsize}{}
@@ -165,7 +128,7 @@
 \else
 \DeclareFontShape{JY2}{mc}{m}{n}{%
   <5>     s*[0.995848]upjisr-h %  7Q
-  <6>     s*\if@letter [0.94843]\else [1.06698]\fi upjisr-h %  8Q/9Q
+  <6>     s*[1.06698]upjisr-h %  8Q/9Q
   <7>     s*[1.016171]upjisr-h % 10Q
   <8>     s*[0.978065]upjisr-h % 11Q
   <9>     s*[0.948427]upjisr-h % 12Q
@@ -180,7 +143,7 @@
 }{}
 \DeclareFontShape{JY2}{gt}{m}{n}{%
   <5>     s*[0.995848]upjisg-h %  7Q
-  <6>     s*\if@letter [0.94843]\else [1.06698]\fi upjisg-h %  8Q/9Q
+  <6>     s*[1.06698]upjisg-h %  8Q/9Q
   <7>     s*[1.016171]upjisg-h % 10Q
   <8>     s*[0.978065]upjisg-h % 11Q
   <9>     s*[0.948427]upjisg-h % 12Q
@@ -196,7 +159,7 @@
 %%
 \DeclareFontShape{JT2}{mc}{m}{n}{%
   <5>     s*[0.995848]upjisr-v %  7Q
-  <6>     s*\if@letter [0.94843]\else [1.06698]\fi upjisr-v %  8Q/9Q
+  <6>     s*[1.06698]upjisr-v %  8Q/9Q
   <7>     s*[1.016171]upjisr-v % 10Q
   <8>     s*[0.978065]upjisr-v % 11Q
   <9>     s*[0.948427]upjisr-v % 12Q
@@ -211,7 +174,7 @@
 }{}
 \DeclareFontShape{JT2}{gt}{m}{n}{%
   <5>     s*[0.995848]upjisg-v %  7Q
-  <6>     s*\if@letter [0.94843]\else [1.06698]\fi upjisg-v %  8Q/9Q
+  <6>     s*[1.06698]upjisg-v %  8Q/9Q
   <7>     s*[1.016171]upjisg-v % 10Q
   <8>     s*[0.978065]upjisg-v % 11Q
   <9>     s*[0.948427]upjisg-v % 12Q
@@ -240,7 +203,7 @@
 \else
 \DeclareFontShape{JY1}{mc}{m}{n}{%
   <5>     sfixed * [5.1748] jis %  7Q
-  <6>     sfixed * \if@letter [5.9141]\else [6.6533]\fi jis %  8Q or 9Q
+  <6>     sfixed * [6.6533] jis %  8Q or 9Q
   <7>     sfixed * [7.3926] jis % 10Q
   <8>     sfixed * [8.1318] jis % 11Q
   <9>     sfixed * [8.8711] jis % 12Q
@@ -255,7 +218,7 @@
 }{}
 \DeclareFontShape{JY1}{gt}{m}{n}{%
   <5>     sfixed * [5.1748] jisg
-  <6>     sfixed * \if@letter [5.9141]\else [6.6533]\fi jisg
+  <6>     sfixed * [6.6533] jisg
   <7>     sfixed * [7.3926] jisg
   <8>     sfixed * [8.1318] jisg
   <9>     sfixed * [8.8711] jisg
@@ -271,7 +234,7 @@
 %%
 \DeclareFontShape{JT1}{mc}{m}{n}{%
   <5>     sfixed * [5.1748] jis-v %  7Q
-  <6>     sfixed * \if@letter [5.9141]\else [6.6533]\fi jis-v %  8Q or 9Q
+  <6>     sfixed * [6.6533] jis-v %  8Q or 9Q
   <7>     sfixed * [7.3926] jis-v % 10Q
   <8>     sfixed * [8.1318] jis-v % 11Q
   <9>     sfixed * [8.8711] jis-v % 12Q
@@ -286,7 +249,7 @@
 }{}
 \DeclareFontShape{JT1}{gt}{m}{n}{%
   <5>     sfixed * [5.1748] jisg-v
-  <6>     sfixed * \if@letter [5.9141]\else [6.6533]\fi jisg-v
+  <6>     sfixed * [6.6533] jisg-v
   <7>     sfixed * [7.3926] jisg-v
   <8>     sfixed * [8.1318] jisg-v
   <9>     sfixed * [8.8711] jisg-v
@@ -689,15 +652,9 @@
  \setlength\Cvs{\baselineskip}
  \setlength\Chs{\wd0}
 
- \if@letter
-  \newcommand{\Small}{\@setfontsize\Small\@viiipt{18\@Q}%
-   \kanjiskip\z@ \@plus .1zw \@minus .05zw
-  }
- \else
   \newcommand{\Small}{\@setfontsize\Small\@viiipt{16\@Q}%
    \kanjiskip\z@ \@plus .1zw \@minus .05zw
   }
- \fi
 
  \newcommand{\small}{%
   \@setfontsize\small\@viipt{13\@Q}%
@@ -908,12 +865,10 @@
 \def\ft@year{}
 \def\@no{}
 
-\def\typeofletter#1{\gdef\@typeofletter{#1}}
-\def\@typeofletter{}
 \def\Sissue#1{\gdef\@Sissue{#1}}
 \def\@Sissue{}
 
-\if@letter\typeofletter{研究速報}\fi
+%\if@letter\typeofletter{研究速報}\fi
 \field{X}
 \no{xx}
 \vol{x}
@@ -933,71 +888,23 @@
 %% L (letter)
 \let\t@typefont@L\huge
 \def\head@type#1{%% 20\@JQ 平2
- \if@cameraready
-  %\@ifundefined{PSTricksLoaded}{\scalebox{1}[0.8]{\t@typefont@L #1}}
-  % {\def\tmp@scalebox##1{\pst@makebox{\@scalebox{##1}}}%
-  %  \ifx\tmp@scalebox\scalebox
-  %   \scalebox{1 0.8}{\t@typefont@L #1}%
-  %  \else
-  \scalebox{1}[0.8]{\t@typefont@L #1}%
-  %  \fi
-  % }%
- \else
   {\t@typefont@L #1}%
- \fi
 }
 
-\if@cameraready
- \def\hd@typeofletter{%
-  \def\@tempx{ショートノート}%
-  \ifx\@typeofletter\@tempx
-   シ\kern-.25zw ョ\kern-.25zw ー\kern-.25zw ト\kern-.35zw 
-   ノ\kern-.25zw ー\kern-.25zw ト%
-  \else
-   {\kanjiskip=-.075zw \@typeofletter}\hskip1mm
-  \fi
- }
-\else
- \def\hd@typeofletter{\@typeofletter}
-\fi
+
+%def\hd@typeofletter{\@typeofletter}
+
+
 
 \def\ps@ieicej{\let\@mkboth\@gobbletwo
- \if@letter
-  \def\hrulefill{\leaders\hrule height-1.35mm depth1.85mm\hfil}%
-  \def\@oddhead{\@Ltop
-   \smash{\hbox to \textwidth{%
-    \raisebox{-3mm}{\head@type{\hd@typeofletter}}\hrulefill
-      \llap{\normalsize\bfseries\mathversion{bold}\@Sissue}}}%
-   \@Rtop}%
-  \def\@evenhead{\@Ltop
-   \rlap{\smash{\hbox to \textwidth{%
-    \raisebox{-3mm}{\head@type{\hd@typeofletter}}\hrulefill
-   }}}\hfil
-   \ifx\@Sissue\empty
-    {\Small\head@font 電子情報通信学会論文誌\ \hd@year 
-     /\@no\ Vol.\ \@vol\ No.\,\@no}%
-   \else
-    {\normalsize\bfseries\mathversion{bold}\@Sissue}%
-   \fi
-   \@Rtop}%
- \else
   \def\hrulefill{\leaders\hrule height-1.5mm depth1.75mm\hfil}%
-  \if@electronicsletter
-   \def\@oddhead{\@Ltop
-    \smash{\hbox to \textwidth{%
-     \raisebox{-3mm}{\csname t@typefont@\@type\endcsname\tl@type}\hrulefill
-      \llap{\normalsize\bfseries\mathversion{bold}\@Sissue}}}%
-   \@Rtop}%
-  \else
    \def\@oddhead{\@Ltop
     \smash{\hbox to \textwidth{%
      \rule[-1.75mm]{14mm}{0.25mm}%
      \raisebox{-3mm}{\csname t@typefont@\@type\endcsname\tl@type}\hrulefill
       \llap{\normalsize\bfseries\mathversion{bold}\@Sissue}}}%
    \@Rtop}%
-  \fi
   \let\@evenhead\@oddhead
- \fi
  \def\@oddfoot{\@Lbot\hfil
   {\foot@font 電子情報通信学会論文誌\hskip1zw
     \@field\hskip1zw Vol.\ \@vol\hskip1zw No.\,\@no\hskip1zw
@@ -1018,6 +925,8 @@
   \@Rbot}%
 }
 
+ 
+
 \def\ps@IEICEJ{\let\@mkboth\@gobbletwo
  \def\@oddfoot{\@Lbot\hfil
   {\nombre@font \thepage}\hskip3mm
@@ -1031,18 +940,18 @@
   \@Rtop}%
  \def\@evenhead{\@Ltop
   \rlap{\hbox to \textwidth{\smash{\rule[-1.75mm]{\textwidth}{0.25mm}}}}\hfil
-   {\Small\head@font 電子情報通信学会論文誌\ 
+   {\Small\head@font sd電子情報通信学会論文誌\ 
     \hd@year /\@no\ Vol.\ {\let\bfseries\relax \@vol}\ No.\,\@no}%
   \@Rtop}%
 }
 
 \def\odd@header{%
- \if@letter
-  {\Small\head@font レ\hskip1zw タ\hskip1zw ー}%
- \else
-  \if@electronicsletter
-   {\Small\head@font レ\hskip1zw タ\hskip1zw ー}%
-  \else
+% \if@letter
+%  {\Small\head@font レ\hskip1zw タ\hskip1zw ー}%
+% \else
+%  \if@electronicsletter
+%   {\Small\head@font レ\hskip1zw タ\hskip1zw ー}%
+%  \else
    \setbox\@tempboxb\hbox{\Small\head@font\def\\{\unskip\ignorespaces}%
    \hd@type ／\kern\z@\hd@title}%
     \ifdim \wd\@tempboxb > \textwidth
@@ -1050,8 +959,8 @@
       ^^J\@spaces For example, \string\title[header title]{title}}%
     \fi
    \box\@tempboxb
-  \fi
- \fi
+%  \fi
+% \fi
 }
 
 \def\ps@empty{%
@@ -1119,139 +1028,6 @@
  \fi
 }
 
-\def\Lauthorentry{\@ifnextchar[%% ]
- {\TRL@ae}{\NL@ae}}
-
-\def\NL@ae#1#2#3#4{\@ifnextchar[% ]
- {\L@aeP{#1}{#2}{#3}{#4}}%
- {\L@ae{#1}{#2}{#3}{#4}}}
-
-\def\TRL@ae[#1]#2#3#4#5{\@ifnextchar[% ]
- {\TRL@aeP[#1]{#2}{#3}{#4}{#5}}%
- {\TRL@aeNP[#1]{#2}{#3}{#4}{#5}}}
-
-\def\L@ae#1#2#3#4{%
- \@tempcnta\z@
- \advance \@authorcnt \@ne
- \get@al{#4}%
- \def\al@none{0}%
- \expandafter\protected@xdef
-  \csname @jauthormembership\number\@authorcnt\endcsname{%
-   \csname #3J@member\endcsname}%
- \fmt@Jan{#1}%
- \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@\plural@affi
-   \csname @jauthormembership\number\@authorcnt\endcsname}%
- \fmt@Ean{#2}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt\endcsname{%
-   \csname #3@member\endcsname}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt*\endcsname{%
-   \csname #3@members\endcsname}%
- \global\@totalnumber=\@authorcnt
- \def\plural@affi{}%
-}
-
-\def\L@aeP#1#2#3#4[#5]{%
- \@tempcnta\z@
- \advance \@authorcnt \@ne
- \get@al{#4}%
- \def\al@none{0}%
- \@tempcnta\z@
- \get@p@al{#5}%
- \expandafter\protected@xdef
-  \csname @jauthormembership\number\@authorcnt\endcsname{%
-   \csname #3J@member\endcsname}%
- \fmt@Jan{#1}%
- \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@\plural@affi\plural@p@affi
-   \csname @jauthormembership\number\@authorcnt\endcsname
- }%
- \fmt@Ean{#2}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi\nobreak\plural@p@affi
- }%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt\endcsname{%
-   \csname #3@member\endcsname}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt*\endcsname{%
-   \csname #3@members\endcsname}%
- \global\@totalnumber=\@authorcnt
- \def\plural@affi{}%
- \def\plural@p@affi{}%
-}
-
-\def\TRL@aeNP[#1]#2#3#4#5{%
- \@tempcnta\z@
- \advance \@authorcnt \@ne
- \GetEma{#1}%
- \get@al{#5}%
- \def\al@none{0}%
- \expandafter\protected@xdef
-  \csname @jauthormembership\number\@authorcnt\endcsname{%
-   \csname #4J@member\endcsname}%
- \fmt@Jan{#2}%
- \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@\plural@affi\email@affi
-   \csname @jauthormembership\number\@authorcnt\endcsname}%
- \fmt@Ean{#3}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi\email@affi}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt\endcsname{%
-   \csname #4@member\endcsname}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt*\endcsname{%
-   \csname #4@members\endcsname}%
- \global\@totalnumber=\@authorcnt
- \def\plural@affi{}%
-}
-
-\def\TRL@aeP[#1]#2#3#4#5[#6]{%
- \@tempcnta\z@
- \advance \@authorcnt \@ne
- \GetEma{#1}%
- \get@al{#5}%
- \def\al@none{0}%
- \@tempcnta\z@
- \get@p@al{#6}%
- \expandafter\protected@xdef
-  \csname @jauthormembership\number\@authorcnt\endcsname{%
-   \csname #4J@member\endcsname}%
- \fmt@Jan{#2}%
- \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@\plural@affi\plural@p@affi\email@affi
-   \csname @jauthormembership\number\@authorcnt\endcsname
- }%
- \fmt@Ean{#3}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi\nobreak\plural@p@affi\nobreak\email@affi
- }%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt\endcsname{%
-   \csname #4@member\endcsname}%
- \expandafter\protected@xdef
-  \csname @authormembership\number\@authorcnt*\endcsname{%
-   \csname #4@members\endcsname}%
- \global\@totalnumber=\@authorcnt
- \def\plural@affi{}%
- \def\plural@p@affi{}%
-}
-
-\def\rJ@member{\hskip-.25zw （正員）}
-\def\mJ@member{\hskip-.25zw （正員）}
-\def\aJ@member{\hskip-.25zw （准員）}
-%%\def\nJ@member{（非会員）}
-\def\nJ@member{}
-\def\sJ@member{\hskip-.25zw （学生員）}
-\def\hJ@member{\hskip-.25zw （名誉員）}
-\def\fJ@member{\hskip-.25zw （正員：フェロー）}
-\def\eJ@member{\hskip-.25zw （正員：シニア会員）}
-
 \def\authorentry{\@ifnextchar[% ]
  {\TR@ae}{\N@ae}}
 
@@ -1259,9 +1035,9 @@
  {\@aeP{#1}{#2}{#3}}%
  {\@ae{#1}{#2}{#3}}}
 
-\def\TR@ae[#1]#2#3#4{\@ifnextchar[% ]
- {\TR@aeP[#1]{#2}{#3}{#4}}%
- {\TR@aeNP[#1]{#2}{#3}{#4}}}
+\def\TR@ae[#1]#2{\@ifnextchar[% ]
+ {\TR@aeP[#1]{#2}}%
+ {\TR@aeNP[#1]{#2}}}
 
 \def\fmt@Jan#1{%
  \expandafter\def\csname EICMN@name\number\@authorcnt\endcsname{#1}%
@@ -1367,10 +1143,10 @@
  \def\al@none{0}%
  \fmt@Jan{#1}%
  \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@\rlap{\plural@affi}}%
+  \@authorname\kern\z@\rlap{}}%
  \fmt@Ean{#2}%
  \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi}% 
+  \@authorname\nobreak}% 
  \global\@totalnumber=\@authorcnt
  \def\plural@affi{}%
 }
@@ -1396,18 +1172,18 @@
 }
 
 \if@tecrep\else
- \if@letter
-  %\font\EA@font=cmr5
-  \def\EA@font{\normalfont\fontsize{5}{\z@}\selectfont}
- \else
-  \if@electronicsletter
+% \if@letter
+%  %\font\EA@font=cmr5
+%  \def\EA@font{\normalfont\fontsize{5}{\z@}\selectfont}
+% \else
+%  \if@electronicsletter
    %\font\EA@font=cmr6
-   \def\EA@font{\normalfont\fontsize{6}{\z@}\selectfont}
-  \else
+%   \def\EA@font{\normalfont\fontsize{6}{\z@}\selectfont}
+%  \else
    %\font\EA@font=cmr7
    \def\EA@font{\normalfont\fontsize{7}{\z@}\selectfont}
-  \fi
- \fi
+%  \fi
+% \fi
 \fi
 
 \def\email@affi{%
@@ -1422,142 +1198,69 @@
  \@tempcnta\z@
  \advance \@authorcnt \@ne
  \GetEma{#1}
- \get@al{#4}%
+% \get@al{#4}%
  \def\al@none{0}%
  \fmt@Jan{#2}%
  \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
   \@authorname\kern\z@\rlap{\plural@affi\email@affi}%
  }%
- \fmt@Ean{#3}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi\nobreak\email@affi
- }% 
+ %\fmt@Ean{#3}%
+ %\expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
+ % \@authorname\nobreak\plural@affi\nobreak\email@affi
+ %}% 
  \global\@totalnumber=\@authorcnt
  \def\plural@affi{}%
 }
 
-\def\TR@aeP[#1]#2#3#4[#5]{%
+\def\TR@aeP[#1]#2{%
  \@tempcnta\z@
  \advance \@authorcnt \@ne
  \GetEma{#1}%
- \get@al{#4}%
+ %\get@al{#4}%
  \def\al@none{0}%
  \@tempcnta\z@
- \get@p@al{#5}%
+% \get@p@al{#5}%
  \fmt@Jan{#2}%
  \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
   \@authorname\kern\z@\rlap{\plural@affi\plural@p@affi\email@affi}%
  }%
- \fmt@Ean{#3}%
- \expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
-  \@authorname\nobreak\plural@affi\nobreak\plural@p@affi\nobreak\email@affi
- }%
+ %\fmt@Ean{#3}%
+ %\expandafter\protected@xdef\csname @Eauthorname\number\@authorcnt\endcsname{%
+ % \@authorname\nobreak\plural@affi\nobreak\plural@p@affi\nobreak\email@affi
+ %}%
  \global\@totalnumber=\@authorcnt
  \def\plural@affi{}%
  \def\plural@p@affi{}%
 }
 
-\if@tecrep
- \bgroup
-  \catcode`@=12\relax
-  \gdef\GetEma#1{%
-   \def\tempema{#1}%
-   \ifx\tempema\empty
-    \def\tempAnDn{n n.n.n}%
-   \else
-    \def\tempa##1@##2\nil{##1 ##2}% 
-    \edef\tempAnDn{\expandafter\tempa\tempema\nil}%
-   \fi
-   \ProcessEma
-  }%
- \egroup
-
- \newcount\tn@dn
-
- \def\ProcessEma{%
-  \def\tempa##1 ##2\@nil{%
-   \@ifundefined{##2}
-    {\expandafter\gdef\csname ##2\endcsname{##1}%
-     \advance\tn@dn\@ne
-     \expandafter\def\csname adrs\number\tn@dn\endcsname{##2}%
-    }%
-    {\expandafter\protected@xdef
-     \csname ##2\endcsname{\csname ##2\endcsname,##1}%
-    }%
-  }% 
-  \def\get@AnDn{\expandafter\tempa\tempAnDn\@nil}\get@AnDn
- }
-
- \def\fmt@Ema{%
-  \@tempcntb\z@
-  \loop
-   \ifnum\@tempcntb<\tn@dn
-    \advance\@tempcntb\@ne
-    \def\ad@none{n.n.n}%
-    \expandafter\ifx\csname adrs\number\@tempcntb\endcsname \ad@none
-    \else
-     \protected@edef\tmp@An{%
-      \expandafter\csname \csname adrs\number\@tempcntb\endcsname \endcsname}%
-     \@tempcnta\z@
-     \@for\get@An:=\tmp@An\do{%
-      \global\advance \@tempcnta \@ne
-     }%
-     \protected@xdef\Mail@ddress{%
-      \ifx\Mail@ddress\empty\else\Mail@ddress,\ \fi
-       \ifnum\@totalnumber=\@ne
-        \if@affinone\else
-         $\ieicej@fnsymbol{\the\@tempcntb}$%
-        \fi
-       \else
-        $\ieicej@fnsymbol{\the\@tempcntb}$%
-       \fi
-       \ifnum\@tempcnta=\@ne
-	\expandafter\csname \csname adrs\number\@tempcntb\endcsname \endcsname
-	 @\csname adrs\number\@tempcntb\endcsname
-       \else
-	\{%% \protect
-	 \expandafter\csname \csname adrs\number\@tempcntb\endcsname \endcsname
-	  \}%
-	 @\csname adrs\number\@tempcntb\endcsname
-       \fi
-     }%
-     \gdef\header@ma{E-mail:}%
-    \fi
-  \repeat
- }
- \def\Mail@ddress{}
- \def\header@ma{}
-
- \def\MailAddress#1{\gdef\@MailAddress{#1}}
- \def\@MailAddress{}
-\else
- \setcounter{enumiv}{15}%
+% \setcounter{enumiv}{15}%
  \def\GetEma#1{%
-  \def\@tempEma{#1}%
+%  \def\@tempEma{#1}%
   \ifx\@tempEma\empty\else
-   \global\advance \c@enumiv \@ne
-   \let\@fnsymbol\ieicej@fnsymbol
-   \protected@xdef\@Emadrs{\@Emadrs
-    %\protect\footnotetext[\the\c@enumiv]{E-mail: \protect\texttt{#1}}%
-    \protect\footnotetext[\the\c@enumiv]{E-mail: #1}%
+%   \global\advance \c@enumiv \@ne
+%   \let\@fnsymbol\ieicej@fnsymbol
+   \protected@xdef\@Teacher{\@Teacher
+%    \protect\footnotetext[\the\c@enumiv]{E-mail: \protect\texttt{#1}}%
+    {（指導教員　#1）}%
    }%
   \fi
  }%
- \def\@Emadrs{}
-\fi
+ \def\@Teacher{}
+
+% \def\@Emadrs{}
 
 \newcount\@spcnt
 \newcount\alignorder
-\if@letter
- \alignorder=2\relax
-\else
+%\if@letter
+% \alignorder=2\relax
+%\else
  \if@paper
   \alignorder=4\relax
  \else
   \alignorder=3\relax
 %%\alignorder=4\relax
  \fi
-\fi
+%\fi
 
 \if@tecrep
  \alignorder=5\relax
@@ -1641,7 +1344,8 @@
   \fi
 }
 
-\if@tecrep
+% 名前本体
+
  \def\@outputJauthorlist{%
   \fmt@Jauthorlist
   \@authorcnt\z@
@@ -1649,104 +1353,22 @@
     \advance \@authorcnt \@ne
     \advance \@spcnt \@ne
     \@ifundefined{sp\number\@spcnt}%
-     {\expandafter\def\csname sp\number\@spcnt\endcsname{\hskip\Pauthorsep}}{}%
-    \let\cr\@par
-    \protected@xdef\@tempx{\@tempx
-     \mbox{\csname @Jauthorname\number\@authorcnt\endcsname}%
-      \csname sp\number\@spcnt\endcsname}%
-   \repeat
-  \@tempx
- }
-\else
- \def\@outputJauthorlist{%
-  \fmt@Jauthorlist
-  \@authorcnt\z@
-   \loop\ifnum \@authorcnt < \@totalnumber
-    \advance \@authorcnt \@ne
-    \advance \@spcnt \@ne
-    \@ifundefined{sp\number\@spcnt}%
-     {\expandafter\def\csname sp\number\@spcnt\endcsname{&}}{}%
+     {\expandafter\def\csname sp\number\@spcnt\endcsname{~}}{}%
     \protected@xdef\@tempx{\@tempx
      \csname @Jauthorname\number\@authorcnt\endcsname
      \csname sp\number\@spcnt\endcsname}%
    \repeat
   \@tempx
+
+   \@Teacher
  }
-\fi
 
 \def\@tempx{}
 
-\def\breakauthorline#1{%
- \@for\@breakauthor:=#1\do{%
-  \expandafter\gdef\csname @breakauthorline\@breakauthor\endcsname{\\}
- }%
-  \@authorcnt\z@
-  \loop\ifnum \@authorcnt < \@totalnumber
-   \advance \@authorcnt \@ne
-    \@ifundefined{@breakauthorline\number\@authorcnt}%
-    {\expandafter\gdef\csname @breakauthorline\number\@authorcnt\endcsname
-     {\relax}}{\relax}%
-  \repeat
-}
 
 \newcount\totalnumberm@ne
 
-\def\L@outputEauthorlist{%
- \def\r@member{{\itshape Member}}%
- \def\r@members{{\itshape Members}}%
- \def\m@member{{\itshape Member}}%
- \def\m@members{{\itshape Members}}%
- \def\n@member{{\itshape  Nonmember}}%
- \def\n@members{{\itshape Nonmembers}}%
- \def\a@member{{\itshape  Affiliate Member}}%
- \def\a@members{{\itshape Affiliate Members}}%
- \def\h@member{{\itshape  Fellow, Honorary Member}}%
- \def\h@members{{\itshape Fellows, Honorary Members}}%
- \def\s@member{{\itshape  Student Member}}%
- \def\s@members{{\itshape Student Members}}%
- \def\f@member{{\itshape Fellow}}%
- \def\f@members{{\itshape Fellows}}%
- \def\e@member{{\itshape Senior Member}}%
- \def\e@members{{\itshape Senior Members}}%
- \def\no@authormembership{\relax}%
- \@authorcnt\z@
- \totalnumberm@ne\@totalnumber \advance \totalnumberm@ne -\@ne
-  \loop\ifnum \@authorcnt < \@totalnumber
-   \advance \@authorcnt \@ne
-    \ifnum \@authorcnt < \totalnumberm@ne
-     \mbox{\csname @Eauthorname\number\@authorcnt\endcsname
-      \expandafter\ifx \csname @authormembership\number\@authorcnt\endcsname
-       \no@authormembership
-      \else
-       \nobreak, 
-      \fi
-     \nobreak\csname @authormembership\number\@authorcnt\endcsname}\nobreak, 
-      \csname @breakauthorline\number\@authorcnt\endcsname
-    \else
-     \ifnum \@authorcnt = \@totalnumber
-      \mbox{\csname @Eauthorname\number\@authorcnt\endcsname
-       \expandafter\ifx \csname @authormembership\number\@authorcnt\endcsname
-        \no@authormembership
-       \else
-        \nobreak, 
-       \fi
-      \nobreak\csname @authormembership\number\@authorcnt\endcsname}%
-        \csname @breakauthorline\number\@authorcnt\endcsname
-     \else
-      \mbox{\csname @Eauthorname\number\@authorcnt\endcsname
-       \expandafter\ifx \csname @authormembership\number\@authorcnt\endcsname
-        \no@authormembership
-       \else
-        \nobreak, 
-       \fi
-      \nobreak\csname @authormembership\number\@authorcnt\endcsname
-       \ifnum \@totalnumber=\tw@\ \else , \fi}%
-        \csname @breakauthorline\number\@authorcnt\endcsname\allowbreak
-         and\ 
-     \fi
-    \fi
-  \repeat
-}
+
 
 \def\@outputEauthorlist{%
  \@authorcnt\z@
@@ -1772,66 +1394,6 @@
 \newif\if@plural
 \newcount\@authorcntp@ne
 
-%% letter and letter paper
-\def\@chkmbrship{%
- \the\@authorlist
- \@authorcnt \z@
- \@pluralfalse
- \loop\ifnum \@authorcnt < \@totalnumber
-  \advance \@authorcnt \@ne
-  \@authorcntp@ne=\@authorcnt \advance \@authorcntp@ne \@ne
-   \if@plural
-    \edef\@nextmembership{%
-     \csname @authormembership\number\@authorcntp@ne*\endcsname}%
-   \else
-    \edef\@nextmembership{%
-     \csname @authormembership\number\@authorcntp@ne\endcsname}%
-   \fi
-  \expandafter\ifx\csname @authormembership\number\@authorcnt\endcsname
-   \@nextmembership
-    \expandafter\gdef\csname @authormembership\number\@authorcnt\endcsname
-     {\relax}%
-    \edef\tempauthormembership
-     {\csname @authormembership\number\@authorcntp@ne*\endcsname}%
-    \expandafter\let
-     \csname @authormembership\number\@authorcntp@ne\endcsname
-      \tempauthormembership \@pluraltrue
-  \else \@pluralfalse
-  \fi
- \repeat
-}
-
-\def\MembershipNumber#1{%
- \def\tmpchk@MN{#1}%
- \ifx\tmpchk@MN\@empty\else
-  \expandafter\def\csname EICMN@\number\@authorcnt\endcsname{#1}%
- \fi
-}
-\def\@Membership@Number{%
- \@authorcnt\z@
- \loop
-  \ifnum \@authorcnt < \@totalnumber
-   \advance \@authorcnt \@ne
-   \chk@MN{EICMN@\number\@authorcnt}%
-   \noindent
-   \csname EICMN@name\number\@authorcnt\endcsname\hskip2zw
-   \texttt{\csname EICMN@\number\@authorcnt\endcsname}\par
- \repeat
-}
-
-\def\chk@MN#1{%
- \@ifundefined{#1}{}{%
-  \expandafter\@tempcnta \csname #1\endcsname\relax
-  \ifnum \@tempcnta > 9999999\relax
-   \ieicej@warning{Membership Number "\the\@tempcnta" might be wrong}%
-  \else
-   \ifnum \@tempcnta < 1000000\relax
-    \ieicej@warning{Membership Number "\the\@tempcnta" might be wrong}%
-   \fi
-  \fi
- }%
-}
-
 \def\Jorganization#1{#1}
 \def\Jdepartment#1{#1}
 \def\Jaddress#1{#1}
@@ -1844,83 +1406,19 @@
 \newcount\chk@p@alcnt
 
 \if@tecrep %%%
- \def\affiliate[#1]#2#3{%
-  \advance \chk@alcnt \@ne
-  \@ifundefined{al@#1}%
-   {\expandafter\def\csname al@#1\endcsname{1}%
-    \ieicej@warning{Check the "#1" label, it does not correspond to
-      ^^J\space\space any labels in \string\authorentry\space command}%
-   }{}%
-  \protected@xdef\J@affiliate{\J@affiliate
-   $\protect\ieicej@fnsymbol{\csname al@#1\endcsname}$\ #2\\}%
-  \protected@xdef\E@affiliate{\E@affiliate
-   $\protect\ieicej@fnsymbol{\csname al@#1\endcsname}$\ #3\\}%
- }
- \def\J@affiliate{}
- \def\E@affiliate{}
-
- %% 引数を3つに変更
- \def\paffiliate[#1]#2#3{%
-  \advance \chk@p@alcnt \@ne
-  \@ifundefined{p@al@#1}%
-   {\expandafter\def\csname p@al@#1\endcsname{1}%
-    \ieicej@warning{Check the "#1" label, it does not correspond to
-     ^^J\space\space any labels in \string\authorentry\space command}
-   }{}%
-  \protected@xdef\Jp@affiliate{\Jp@affiliate
-   $\protect\ieicej@fnsymbol{\csname p@al@#1\endcsname}$\ #2}%
-  \protected@xdef\Ep@affiliate{\Ep@affiliate
-   $\protect\ieicej@fnsymbol{\csname p@al@#1\endcsname}$\ #3}%
- }
- \def\Jp@affiliate{}
- \def\Ep@affiliate{}
 \else %%%
- \def\affiliate[#1]#2#3{%
-  \advance \chk@alcnt \@ne
-  \@ifundefined{al@#1}%
-   {\expandafter\def\csname al@#1\endcsname{1}%
-    \ieicej@warning{Check the "#1" label, it does not correspond to
-      ^^J\space\space any labels in \string\authorentry\space command}%
-   }{}%
-  %% \let\@fnsymbol\ieicej@fnsymbol %% \show
-  \protected@xdef\@affiliate{\@affiliate
-   \protect\footnotetext[\csname al@#1\endcsname]{%%\protect\raggedright
-    #2\hfil\break #3}}%
- }
- \def\@affiliate{}
-
- \def\paffiliate[#1]#2{%
-  \advance \chk@p@alcnt \@ne
-  \@ifundefined{p@al@#1}%
-   {\expandafter\def\csname p@al@#1\endcsname{1}%
-    \ieicej@warning{Check the "#1" label, it does not correspond to
-     ^^J\space\space any labels in \string\authorentry\space command}
-   }{}%
-  %% \let\@fnsymbol\ieicej@fnsymbol %% \show
-  \protected@xdef\p@affiliate{\p@affiliate
-   \protect\footnotetext[\csname p@al@#1\endcsname]{#2}}%
- }
- \def\p@affiliate{}
 \fi %%%
 
 \newbox\eabstractbox
 \newbox\ekeywordbox
 \def\eabstract{\global\setbox\eabstractbox=\hbox\bgroup
- \if@tecrep
-  \large
- \else
   \normalsize
- \fi
   {\bfseries Abstract\hskip1zw}\ignorespaces}
 \def\endeabstract{\egroup}
 
 \def\ekeyword{\global\setbox\ekeywordbox=\hbox\bgroup
- \if@tecrep
-  \large
- \else
-  \normalsize
- \fi
-  {\bfseries Key words\hskip1zw}\ignorespaces}
+\normalsize
+{\bfseries Key words\hskip1zw}\ignorespaces}
 \def\endekeyword{\egroup}
 
 \newdimen\Pauthorsep
@@ -1934,222 +1432,6 @@
 \def\esubtitle#1{\gdef\@esubtitle{#1}}
 \def\@esubtitle{}
 
-\if@tecrep %%% technicalreport
- \def\maketitle{\par
-  \begingroup 
-  \ifnum \chk@alcnt < \@alcnt
-    \ieicej@warning{information of \string\affiliate\space is not assigned}%
-   \fi
-   \advance \p@alcnt -9\relax
-   \ifnum \chk@p@alcnt < \p@alcnt
-    \ieicej@warning{information of \string\paffiliate\space is not assigned}%
-   \fi
-   \def\@fnsymbol##1{\ifcase##1 \or
-    \dag\or
-    \dag\dag\or
-    \dag\dag\dag\or
-    \dag\dag\dag\dag\or
-    \dag\dag\dag\dag\dag\or
-    \dag\dag\dag\dag\dag\dag\or
-    \dag\dag\dag\dag\dag\dag\dag\or
-    \dag\dag\dag\dag\dag\dag\dag\dag\or
-    \dag\dag\dag\dag\dag\dag\dag\dag\dag\or
-    *\or {*}{*}\or {*}{*}{*}\or {*}{*}{*}{*}\or {*}{*}{*}{*}{*}\or
-     {*}{*}{*}{*}{*}{*}\else\@ctrerr\fi\relax}%
-   \def\thefootnote{\fnsymbol{footnote}}%
-   \if@twocolumn
-    \twocolumn[\@maketitle]%
-   \else
-    \ieicej@warning{I don't recommend onecolumn option,
-      ^^J\space\space because of no compatibility with technicalreport option}%
-    \@maketitle
-   \fi
-  \endgroup
-   \let\maketitle\relax
-   \let\@maketitle\relax
-   \gdef\@affiliate{}\gdef\p@affiliate{}
-   \gdef\@jtitle{}\gdef\@etitle{}
-   \gdef\@jsubtitle{}\gdef\@esubtitle{}
-   \let\affiliate\relax\let\paffiliate\relax
-   \@authorlist={}%
-   \let\jkeyword\relax\let\jabstract\relax
-   \let\ekeyword\relax\let\eabstract\relax
-   \let\@outputJauthorlist\relax\let\@outputEauthorlist\relax
-   \let\@aeP\relax
-   \let\@ae\relax
-   \let\TR@ae\relax
-   \let\N@ae\relax
-   \let\TR@aeP\relax
-   \let\TR@aeNP\relax
-   \let\breakauthorline\relax
-   \@authorcnt \z@
-   \loop\ifnum \the\@authorcnt < \the\@totalnumber
-    \advance \@authorcnt \@ne
-     \expandafter\let\csname @Jauthorname\number\@authorcnt\endcsname\relax
-     \expandafter\let\csname @Eauthorname\number\@authorcnt\endcsname\relax
-   \repeat
- }
-
- \def\@maketitle{%
-  \setbox\@tempboxa\vbox{%
-    \def\baselinestretch{\@titlepagebaselinestretch}%
-    \hskip8mm
-    \vtop{\footnotesize\baselineskip3mm
-     \hbox{社団法人\hskip1zw 電子情報通信学会}%
-     \hbox{THE INSTITUTE OF ELECTRONICS,}%
-     \hbox{INFORMATION AND COMMUNICATION ENGINEERS}%
-    }\hfill
-    \vtop{\footnotesize\baselineskip3mm
-     \hbox{信学技報}%
-     \hbox{TECHNICAL REPORT OF IEICE.}%
-     \hbox{}%
-    }\hskip8mm\hbox{}\par
-    \vskip\baselineskip
-    \bgroup
-     \centering
-     {\fontsize{16}{23}\selectfont
-      \@jtitle\par
-     }%
-     \vskip.25\baselineskip
-     \ifx\@jsubtitle\empty
-     \else
-      {\huge
-       \@jsubtitle\par
-      }%
-      \vskip.25\baselineskip
-     \fi
-     {\LARGE
-       \@outputJauthorlist\par
-     }%
-     \vskip.5\baselineskip
-     {\fontsize{10.5}{15}\selectfont
-      \J@affiliate\par
-      \Jp@affiliate\par
-      \ifx\@MailAddress\empty
-       \fmt@Ema
-       \ifx\header@ma\empty
-        \vskip.5\baselineskip
-       \else
-	E-mail: \Mail@ddress\par
-	\vskip.5\baselineskip
-       \fi
-      \else
-       E-mail: \@MailAddress
-       \vskip.5\baselineskip
-      \fi
-     }%
-    \egroup
-    \bgroup\large
-     \leavevmode
-     \unhbox\jabstractbox\par
-     \nointerlineskip
-     \vskip\baselineskip
-     \vskip-1zh
-     \vskip0pt
-     \leavevmode
-     \unhbox\jkeywordbox\par
-    \egroup
- %%
-    \vskip1.5\baselineskip
-    \bgroup
-     \centering
-     {\fontsize{16}{23}\selectfont
-      \@etitle\par
-     }%
-     \vskip.25\baselineskip
-     \ifx\@esubtitle\empty
-     \else
-      {\huge
-       \@esubtitle\par
-      }%
-      \vskip.25\baselineskip
-     \fi
-     {\LARGE
-      \hyphenpenalty=10000\relax
-      \@outputEauthorlist\par
-     }%
-     \vskip.5\baselineskip
-     {\fontsize{10.5}{15}\selectfont
-      \E@affiliate\par
-      \Ep@affiliate\par
-      \ifx\@MailAddress\empty
-       \ifx\header@ma\empty
-        \vskip.5\baselineskip
-       \else
-	E-mail: \Mail@ddress\par
-	\vskip.5\baselineskip
-       \fi
-      \else
-       E-mail: \@MailAddress
-       \vskip.5\baselineskip
-      \fi
-     }%
-    \egroup
-    \bgroup\large
-     \leavevmode \unhbox\eabstractbox\par
-     \nointerlineskip
-     \vskip\baselineskip
-     \vskip-1zh
-     \vskip0pt
-     \leavevmode \unhbox\ekeywordbox
-    \egroup
-    \vskip\baselineskip
-  }%
-  \@tempdima\ht\@tempboxa
-  \advance \@tempdima \dp\@tempboxa
-  \ifdim \@tempdima>\textheight
-   \ieicej@warning{The title page is too high. 
-      ^^J\space\space You can adjust the height of a title page
-      ^^J\space\space by changing \string\titlepagebaselinestretch\space 
-		      in preamble.
-      ^^J\space\space For example, \string\titlepagebaselinestretch{0.9}}%
-   {\parindent\z@
-    \vtop to \z@{%
-     \vbox to \textheight{%
-      \unvbox\@tempboxa
-     }\vss
-    }%
-   }\par
-   \clearpage
-  \else
-   \divide \@tempdima \Cvs
-   \@tempcnta=\@tempdima
-   \advance \@tempcnta \@ne
-   \vbox to \@tempcnta\Cvs{%
-    \box\@tempboxa\vss
-   }%
-  \fi
- }
-
- \newbox\jabstractbox
- \newbox\jkeywordbox
-
- \def\jabstract{\global\setbox\jabstractbox\hbox\bgroup
-   \large
-   {\bfseries あらまし\hskip1zw}\ignorespaces}
-   \def\endjabstract{\egroup}
-
- \def\jkeyword{\global\setbox\jkeywordbox\hbox\bgroup
-   \large
-   {\bfseries キーワード\hskip1zw}\ignorespaces}
- \def\endjkeyword{\egroup}
-
- \let\abstract\jabstract
- \let\endabstract\endjabstract
- \let\keyword\jkeyword
- \let\endkeyword\endjkeyword
-
-\else %%%
-
- \if@letter
-  \def\abstract{\parindent\z@
-   \hspace*{1zw}{\bfseries あらまし\hskip1zw}\ignorespaces}
-  \def\endabstract{\par\ignorespaces}
-
-  \def\keyword{\parindent\z@
-   \hspace*{1zw}{\bfseries キーワード\hskip1zw}\ignorespaces}
-  \def\endkeyword{\par}
- \else
   \newbox\abstractbox
   \newbox\keywordbox
   \def\abstract{\global\setbox\abstractbox=\hbox\bgroup
@@ -2161,7 +1443,7 @@
    \begin{minipage}[t]{137.5mm}%11Q 50zw
     \Small\hskip1zw{\bfseries キーワード\hskip1zw}\ignorespaces}
   \def\endkeyword{\end{minipage}\egroup}
- \fi
+
 
  \let\jabstract\abstract
  \let\endjabstract\endabstract
@@ -2239,19 +1521,19 @@
      \begin{minipage}{\columnwidth}%
       \@makeLtitle
       \@tempswafalse
-      \@affiliate
-      \p@affiliate
+      %\@affiliate
+      %\p@affiliate
       \@tempswatrue
-      \@Emadrs
+      %\@Emadrs
      \end{minipage}\par
      \vskip23\@Q \@plus 18\@Q \@minus 1\@Q
     \thispagestyle{ieicej}%
   \endgroup
    \let\makeLtitle\relax
    \let\@makeLtitle\relax
-   \gdef\@affiliate{}\gdef\p@affiliate{}%
+   %\gdef\@affiliate{}\gdef\p@affiliate{}%
    \gdef\@jtitle{}\gdef\@etitle{}%
-   \let\affiliate\relax\let\paffiliate\relax
+   %\let\affiliate\relax\let\paffiliate\relax
    \@authorlist={}%
    \let\@outputJauthorlist\relax\let\L@outputEauthorlist\relax
    \let\L@aeP\relax
@@ -2334,16 +1616,16 @@
        \fi
     }%
    \@tempswafalse
-   \@affiliate
-   \p@affiliate
+   %\@affiliate
+   %\p@affiliate
    \@tempswatrue
-   \@Emadrs
+   %\@Emadrs
   \endgroup
    \let\maketitle\relax
    \expandafter\let\csname @make\@type title\endcsname\relax
-   \gdef\@affiliate{}\gdef\p@affiliate{}
+   %\gdef\@affiliate{}\gdef\p@affiliate{}
    \gdef\@jtitle{}\gdef\@etitle{}
-   \let\affiliate\relax\let\paffiliate\relax
+   %\let\affiliate\relax\let\paffiliate\relax
    \@authorlist={}
    \let\keyword\relax\let\abstract\relax
    \let\@outputJauthorlist\relax\let\@outputEauthorlist\relax
@@ -2365,6 +1647,7 @@
  \def\@ADJ{}
  \ADJ{0mm}
 
+%% レイアウト本体
  %% paper
  \def\@makePtitle{%
   \setbox\@tempboxa\hbox{%
@@ -2377,6 +1660,9 @@
      {\LARGE
       \@jtitle
      }\par
+     {\LARGE
+      \@etitle
+     }\par
       \vskip11\@Q
      {\Large
       \tabcolsep\Pauthorsep
@@ -2384,18 +1670,7 @@
        \@outputJauthorlist
       \end{tabular}\par
      }%
-     \nointerlineskip
-     \vskip1mm
-     \Large\baselineskip24\@Q
-     \vskip14\@Q
-      \@etitle\par
-     \vskip8\@Q
-     {\large\baselineskip21\@Q
-      \parbox[t]{137.5mm}{\raggedright\baselineskip5.25mm
-       \hyphenpenalty=10000\relax
-       \@outputEauthorlist}\par
-     }%
-     \vskip35\@Q
+     \vskip20\@Q
      \hfill\box\abstractbox\par
      \vskip4\@Q
      \hfill\box\keywordbox
@@ -2419,100 +1694,13 @@
   \setcounter{footnote}{0}%
  }
 
- %% electronicsletter
- \def\@makeLPtitle{%
-  \setbox\@tempboxa\hbox{%
-   \begin{minipage}{137.5mm}% 151.5 - 14
-    \vskip5mm
-    \parindent\z@
-    \tabcolsep\z@
-    \linethickness{0.1mm}%
-     {\jtitlefont@LP
-      \@jtitle\par
-     }%
-     \vskip11\@Q
-     {\jauthorfont@LP
-      \tabcolsep\LPauthorsep
-      \begin{tabular}{@{}llll@{}}
-       \@outputJauthorlist
-      \end{tabular}
-     }%
-     \vskip12\@Q
-     {\etitlefont@LP
-      \@etitle\par
-     }%
-     \vskip2\@Q
-     {\eauthorfont@LP
-      \parbox[t]{137.5mm}{\raggedright\baselineskip14\@Q
-       \hyphenpenalty=10000\relax
-       \L@outputEauthorlist}\par
-     }%
-     \nointerlineskip
-     \vskip23\@Q
-     \hfill\box\abstractbox\par
-     \vskip3\@Q
-     \hfill\box\keywordbox\par
-   \end{minipage}%
-  }%
-   \@tempdima\ht\@tempboxa
-   \advance \@tempdima \dp\@tempboxa
-   \divide \@tempdima \Cvs
-   \@tempcnta=\@tempdima
-   \advance \@tempcnta \tw@
-   {\newpage\null
-    \boxmaxdepth\z@
-    \lineskiplimit\z@
-    \lineskip\z@
-    \parindent\z@
-    \vbox to \@tempcnta\Cvs{%
-     \hskip14mm\box\@tempboxa
-    \vss}%
-   }\par
-  \vspace{\@ADJ}%
-  \setcounter{footnote}{0}%
- }
-
- %% LP  (electronicsletter)
- \def\jtitlefont@LP{%
-  \fontsize{16\@JQ}{24\@Q}\bfseries\selectfont
-  \mathversion{bold}%
- }
- \def\etitlefont@LP{%
-  \normalsize\rmfamily\baselineskip14\@Q
- }
- \let\eauthorfont@LP\etitlefont@LP
- \def\jauthorfont@LP{%
-  \normalsize\baselineskip20\@Q
- }
-
- \if@letter
-  \let\maketitle\makeLtitle
-  \let\@aeP\relax
-  \let\@ae\relax
-  \let\@makePtitle\relax
-  \let\@makeLPtitle\relax
-  \let\@outputEauthorlist\relax
- \fi
-
- \if@paper
   \let\L@aeP\relax
   \let\L@ae\relax
   \let\makeLtitle\relax
   \let\@makeLtitle\relax
   \let\@makeLPtitle\relax
   \let\L@outputEauthorlist\relax
- \fi
 
- \if@electronicsletter
-  \let\@aeP\relax
-  \let\@ae\relax
-  \let\makeLtitle\relax
-  \let\@makeLtitle\relax
-  \let\@makePtitle\relax
-  \let\@outputEauthorlist\relax
- \fi
-
-\fi %%%
 
 \setcounter{secnumdepth}{5}
 \newcounter{section}
@@ -2660,17 +1848,17 @@
  \def\sec@font{\bfseries\KFsec\mathversion{bold}\baselineskip19\@Q}
 \fi
 
-\if@letter
- \newcommand{\section}{\@startsection{section}{1}{1zw}%
-   {\z@}% \@plus.1mm \@minus.1mm
-   {\z@}% \@plus.1mm \@minus.1mm
-   {\reset@font\normalsize\bfseries\mathversion{bold}}}
-\else
+%\if@letter
+% \newcommand{\section}{\@startsection{section}{1}{1zw}%
+%   {\z@}% \@plus.1mm \@minus.1mm
+%   {\z@}% \@plus.1mm \@minus.1mm
+%   {\reset@font\normalsize\bfseries\mathversion{bold}}}
+%\else
  \newcommand{\section}{\@startsection{section}{1}{1zw}%
    {.5\Cvs}% \@plus.1mm \@minus.1mm
    {.5\Cvs}% \@plus.1mm \@minus.1mm
    {\reset@font\Large\sec@font}}
-\fi
+%\fi
  \newcommand{\subsection}{\@startsection{subsection}{2}{1zw}%
    {\z@}% \@plus.1mm \@minus.1mm
    {\z@}% \@plus.1mm \@minus.1mm
@@ -2692,7 +1880,8 @@
  \renewcommand{\section}{\@startsection{section}{1}{\z@}
   {.5\Cvs}% \@plus.1mm \@minus.1mm
   {.5\Cvs}% \@plus.1mm \@minus.1mm
-  {\if@letter\centering\bfseries\else\centering\Large\sec@font\fi}}%
+  %{\if@letter\centering\bfseries\else\centering\Large\sec@font\fi}}%
+  {\centering\Large\sec@font}}%
  \section*{付録}
   \renewcommand{\section}{\@startsection{section}{1}{1zw}
    {\z@}% \@plus.1mm \@minus.1mm
@@ -3835,10 +3024,10 @@
  \pagestyle{plain}
 \else
  \AtEndDocument{%
-  \if@letter
-   \nopagebreak
-   {\small\@uketsuke}\par
-  \fi
+  %\if@letter
+  % \nopagebreak
+  % {\small\@uketsuke}\par
+  %\fi
   %%
   \clearpage
   \addtocounter{page}{-1}%
@@ -3846,8 +3035,8 @@
    {\string\newlabel{ieicej@lastpage}{{}{\thepage}}}%
   \addtocounter{page}{1}%
   %%
-  \if@cameraready
-  \else
+%  \if@cameraready
+%  \else
    \onecolumn
    \thispagestyle{empty}
    \ifvoid\eabstractbox\else
@@ -3861,7 +3050,7 @@
    \fi
    %\vskip2\baselineskip
    %\@Membership@Number
-  \fi
+%  \fi
  }
  \pagestyle{IEICEJ}
 \fi
