@@ -730,10 +730,11 @@
 %% \authornamesep1zw
 
 \def\authorlist#1{%
-  \let\authorentry\Lauthorentry
-  \@authorlist={#1}
+\if@thesis
+\@authorlist={#1}\the\@authorlist
+\else
+\fi
 }
-
 
 \def\authorentry{\@ifnextchar[% ]
  {\TR@ae}{\N@ae}}
@@ -877,7 +878,7 @@
      \mbox{\csname @Jauthorname\number\@authorcnt\endcsname}%
       \csname sp\number\@spcnt\endcsname}%
    \repeat
-  \@tempx
+  \@tempx ttt
  }
 
 \def\@tempx{}
