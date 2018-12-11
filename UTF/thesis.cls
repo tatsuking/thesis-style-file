@@ -878,7 +878,7 @@
      \mbox{\csname @Jauthorname\number\@authorcnt\endcsname}%
       \csname sp\number\@spcnt\endcsname}%
    \repeat
-  \@tempx ttt
+  \@tempx
  }
 
 \def\@tempx{}
