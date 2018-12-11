@@ -1,24 +1,11 @@
 %%%
-%% ieicej.cls (pLaTeX2e)
-%%  for the Transactions of the Institute of Electronics, Information 
-%%   and Communication Engineers by ULS and Company, 1999-2018.
-%% E-mail: ieice-div@uls.co.jp, teppei@uls.co.jp
+%% thesis.cls (pLaTeX2e)
+%%  for the Thesis of Department of Electronics and Control Engineering,
+%%  National Institute of Technology, Kitakyushu College, 2018-.
+%% E-mail: tfukuda@kct.ac.jp
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesClass{ieicej}
-%%[1999/04/28 v1.0 for Transactions of IEICE]
-%%[1999/07/12 v1.0 new release for Transactions of IEICE]
-%%[2000/11/02 v1.1 for Transactions of IEICE]
-%%[2002/02/12 v1.2 for Transactions of IEICE]
-%%[2003/10/31 v1.3 for Transactions of IEICE]
-%%[2006/05/08 v1.4 for Transactions of IEICE]
-%%[2008/05/13 v1.5 for Transactions of IEICE]
-%%[2009/11/03 v1.6 for Transactions of IEICE]
-%%[2010/04/05 v1.6a for Transactions of IEICE]
-%%[2013/01/31 v2.0-prerelese1 for Transactions of IEICE]
-%%[2013/05/15 v2.0-prerelese2 for Transactions of IEICE]
-%%[2013/06/11 v2.0 for Transactions of IEICE]
-%%[2015/11/14 v3.0 for Transactions of IEICE]
-  [2018/05/08 v3.1 for Transactions of IEICE]
+\ProvidesClass{thesis}
+  [2018/12/11 v1.0 for Thesis]
 
 \newif\if@enable@uptex \@enable@uptexfalse
 \ifx\ucs\@undefined\else
@@ -41,41 +28,27 @@
 \def\kenc@JYn{\if@enable@uptex JY2\else JY1\fi}
 \def\kenc@JTn{\if@enable@uptex JT2\else JT1\fi}
 
-\newif\if@paper \@papertrue
-%\newif\if@tecrep \@tecrepfalse
-\newif\if@tecrep \@tecrepfalse
+\newif\if@thesis
+\@thesisfalse
 
-\DeclareOption{paper}{%
- \gdef\hd@type{論文}\gdef\tl@type{a論\hskip1zw 文}\gdef\@type{P}}
+\newif\if@midterm
+\@midtermfalse
 
-\DeclareOption{technicalreport}{%
- \gdef\hd@type{論文}\gdef\tl@type{a論\hskip1zw 文}\gdef\@type{P}}
+\DeclareOption{thesis}{
+  \@midtermfalse\@thesistrue%
+  \gdef\hd@type{卒業論文}\gdef\tl@type{論\hskip1zw 文}\gdef\@type{P}
+  }
+\DeclareOption{midterm}{
+  \@midtermtrue\@thesistrue%
+  \gdef\hd@type{中間発表}\gdef\tl@type{論\hskip1zw 文}\gdef\@type{P}
+ }
 
-\def\tl@type{論\hskip1zw 文}
-\def\hd@type{卒業論文}
-\def\@type{P}% paper
-
-%\def\ieicejline@warning{\ClassWarning{ieicej}}
 \def\ieicej@warning{\ClassWarningNoLine{ieicej}}
 
-%\newif\if@usejistfm \@usejistfmfalse
-%\DeclareOption{usejistfm}{\@usejistfmtrue}
-
-%\newif\if@Proof \@Prooffalse
-%\DeclareOption{Proof}{\@Prooftrue}
-%\newif\if@cameraready \@camerareadyfalse
-%\DeclareOption{cameraready}{\@camerareadytrue}
-
-%% for 2.1.4 and non pLaTeX2e compatibility
-%\@ifundefined{hour}{}{%
-% \hour\time \divide\hour by 60\relax
-% \@tempcnta\hour \multiply\@tempcnta 60\relax
-% \minute\time \advance\minute-\@tempcnta
-%}
 
 
 
-\newcounter{@paper}
+\newcounter{@thesis}
 \newcommand{\@ptsize}{}
 \newif\if@restonecol
 \hour\time \divide\hour by 60\relax
@@ -83,11 +56,16 @@
 \minute\time \advance\minute-\@tempcnta
 \newif\if@enablejfam \@enablejfamtrue
 \newif\if@mathrmmc \@mathrmmcfalse
-\DeclareOption{technicalreport}{\setcounter{@paper}{1}%
-  \@tecreptrue
+\DeclareOption{thesis}{\setcounter{@thesis}{1}%
+  \@thesistrue
   \setlength\paperheight {297mm}%
   \setlength\paperwidth  {210mm}}
-\DeclareOption{b5paper}{\setcounter{@paper}{4}%
+\DeclareOption{midterm}{\setcounter{@thesis}{1}%
+  \@thesistrue
+  \@midtermtrue
+  \setlength\paperheight {297mm}%
+  \setlength\paperwidth  {210mm}}
+\DeclareOption{b5paper}{\setcounter{@thesis}{4}%
   \setlength\paperheight {257mm}
   \setlength\paperwidth  {182mm}}
 \DeclareOption{10pt}{\renewcommand{\@ptsize}{0}}
@@ -113,7 +91,6 @@
 \DeclareOption{twoside}{\@twosidetrue}
 \DeclareOption{onecolumn}{\@twocolumnfalse}
 \DeclareOption{twocolumn}{\@twocolumntrue}
-%%\DeclareOption{leqno}{\input{leqno.clo}}
 \DeclareOption{fleqn}{%\input{fleqn.clo}
  \ieicej@warning{fleqn is loaded by this class file}}
 \DeclareOption{openbib}{%
@@ -133,18 +110,8 @@
 \ProcessOptions\relax
 
 %% pdf and ps papersize
-\if@tecrep
-\else
- \iftombow % +26mm (10+3)x2
-  \AtBeginDvi{\special{papersize=208mm,283mm}}%
-  \hoffset-12.5mm\voffset-12.5mm % 13? 
- \else
-  \AtBeginDvi{\special{papersize=182mm,257mm}}%
- \fi
-\fi
 
 \if@enable@uptex
-\if@tecrep
  \DeclareFontShape{JY2}{mc}{m}{n}{%
      <5> <6> <7> <8> <9> <10> %sgen*min
      <10.95><12><14.4><17.28><20.74><24.88> upjisr-h
@@ -156,70 +123,6 @@
      <-> upjisg-h
      }{}
 \else
-\DeclareFontShape{JY2}{mc}{m}{n}{%
-  <5>     s*[0.995848]upjisr-h %  7Q
-  <6>     s*[1.06698] upjisr-h %  8Q/9Q
-  <7>     s*[1.016171]upjisr-h % 10Q
-  <8>     s*[0.978065]upjisr-h % 11Q
-  <9>     s*[0.948427]upjisr-h % 12Q
-  <10>    s*[0.924714]upjisr-h % 13Q
-  <10.95> s*[0.974411]upjisr-h % 15Q
-  <12>    s*[1.06698]upjisr-h  % 18Q
-  <14.4>  s*[0.987944]upjisr-h % 20Q
-  <17.28> s*[0.987944]upjisr-h % 24Q
-  <20.74> s*[0.960316]upjisr-h % 28Q
-  <24.88> s*[0.914881]upjisr-h % 32Q
-  <-> s*[0.924714]upjisr-h
-}{}
-\DeclareFontShape{JY2}{gt}{m}{n}{%
-  <5>     s*[0.995848]upjisg-h %  7Q
-  <6>     s*[1.06698] upjisg-h %  8Q/9Q
-  <7>     s*[1.016171]upjisg-h % 10Q
-  <8>     s*[0.978065]upjisg-h % 11Q
-  <9>     s*[0.948427]upjisg-h % 12Q
-  <10>    s*[0.924714]upjisg-h % 13Q
-  <10.95> s*[0.974411]upjisg-h % 15Q
-  <12>    s*[1.06698]upjisg-h  % 18Q
-  <14.4>  s*[0.987944]upjisg-h % 20Q
-  <17.28> s*[0.987944]upjisg-h % 24Q
-  <20.74> s*[0.960316]upjisg-h % 28Q
-  <24.88> s*[0.914881]upjisg-h % 32Q
-  <-> s*[0.924714]upjisg-h
-}{}
-%%
-\DeclareFontShape{JT2}{mc}{m}{n}{%
-  <5>     s*[0.995848]upjisr-v %  7Q
-  <6>     s*[1.06698]upjisr-v %  8Q/9Q
-  <7>     s*[1.016171]upjisr-v % 10Q
-  <8>     s*[0.978065]upjisr-v % 11Q
-  <9>     s*[0.948427]upjisr-v % 12Q
-  <10>    s*[0.924714]upjisr-v % 13Q
-  <10.95> s*[0.974411]upjisr-v % 15Q
-  <12>    s*[1.06698]upjisr-v  % 18Q
-  <14.4>  s*[0.987944]upjisr-v % 20Q
-  <17.28> s*[0.987944]upjisr-v % 24Q
-  <20.74> s*[0.960316]upjisr-v % 28Q
-  <24.88> s*[0.914881]upjisr-v % 32Q
-  <-> s*[0.924714]upjisr-v
-}{}
-\DeclareFontShape{JT2}{gt}{m}{n}{%
-  <5>     s*[0.995848]upjisg-v %  7Q
-  <6>     s*[1.06698]upjisg-v %  8Q/9Q
-  <7>     s*[1.016171]upjisg-v % 10Q
-  <8>     s*[0.978065]upjisg-v % 11Q
-  <9>     s*[0.948427]upjisg-v % 12Q
-  <10>    s*[0.924714]upjisg-v % 13Q
-  <10.95> s*[0.974411]upjisg-v % 15Q
-  <12>    s*[1.06698]upjisg-v  % 18Q
-  <14.4>  s*[0.987944]upjisg-v % 20Q
-  <17.28> s*[0.987944]upjisg-v % 24Q
-  <20.74> s*[0.960316]upjisg-v % 28Q
-  <24.88> s*[0.914881]upjisg-v % 32Q
-  <-> s*[0.924714]upjisg-v
-}{}
-\fi
-\else
-\if@tecrep
  \DeclareFontShape{JY1}{mc}{m}{n}{%
      <5> <6> <7> <8> <9> <10> %sgen*min
      <10.95><12><14.4><17.28><20.74><24.88> jis
@@ -230,69 +133,6 @@
      <10.95><12><14.4><17.28><20.74><24.88> jisg
      <-> jisg
      }{}
-\else
-\DeclareFontShape{JY1}{mc}{m}{n}{%
-  <5>     sfixed * [5.1748] jis %  7Q
-  <6>     sfixed * [6.6533] jis %  8Q or 9Q
-  <7>     sfixed * [7.3926] jis % 10Q
-  <8>     sfixed * [8.1318] jis % 11Q
-  <9>     sfixed * [8.8711] jis % 12Q
-  <10>    sfixed * [9.6104] jis % 13Q
-  <10.95> sfixed * [11.089] jis % 15Q
-  <12>    sfixed * [13.307] jis % 18Q
-  <14.4>  sfixed * [14.785] jis % 20Q
-  <17.28> sfixed * [17.742] jis % 24Q
-  <20.74> sfixed * [20.699] jis % 28Q
-  <24.88> sfixed * [23.656] jis % 32Q
-  <->                       jis % 
-}{}
-\DeclareFontShape{JY1}{gt}{m}{n}{%
-  <5>     sfixed * [5.1748] jisg
-  <6>     sfixed * [6.6533] jisg
-  <7>     sfixed * [7.3926] jisg
-  <8>     sfixed * [8.1318] jisg
-  <9>     sfixed * [8.8711] jisg
-  <10>    sfixed * [9.6104] jisg
-  <10.95> sfixed * [11.089] jisg
-  <12>    sfixed * [13.307] jisg
-  <14.4>  sfixed * [14.785] jisg
-  <17.28> sfixed * [17.742] jisg
-  <20.74> sfixed * [20.699] jisg
-  <24.88> sfixed * [23.656] jisg
-  <->                       jisg
-}{}
-%%
-\DeclareFontShape{JT1}{mc}{m}{n}{%
-  <5>     sfixed * [5.1748] jis-v %  7Q
-  <6>     sfixed * [6.6533] jis-v %  8Q or 9Q
-  <7>     sfixed * [7.3926] jis-v % 10Q
-  <8>     sfixed * [8.1318] jis-v % 11Q
-  <9>     sfixed * [8.8711] jis-v % 12Q
-  <10>    sfixed * [9.6104] jis-v % 13Q
-  <10.95> sfixed * [11.089] jis-v % 15Q
-  <12>    sfixed * [13.307] jis-v % 18Q
-  <14.4>  sfixed * [14.785] jis-v % 20Q
-  <17.28> sfixed * [17.742] jis-v % 24Q
-  <20.74> sfixed * [20.699] jis-v % 28Q
-  <24.88> sfixed * [23.656] jis-v % 32Q
-  <->                       jis-v % 
-}{}
-\DeclareFontShape{JT1}{gt}{m}{n}{%
-  <5>     sfixed * [5.1748] jisg-v
-  <6>     sfixed * [6.6533] jisg-v
-  <7>     sfixed * [7.3926] jisg-v
-  <8>     sfixed * [8.1318] jisg-v
-  <9>     sfixed * [8.8711] jisg-v
-  <10>    sfixed * [9.6104] jisg-v
-  <10.95> sfixed * [11.089] jisg-v
-  <12>    sfixed * [13.307] jisg-v
-  <14.4>  sfixed * [14.785] jisg-v
-  <17.28> sfixed * [17.742] jisg-v
-  <20.74> sfixed * [20.699] jisg-v
-  <24.88> sfixed * [23.656] jisg-v
-  <->                       jisg-v
-}{}
-\fi
 \fi
 \DeclareFontShape{\kenc@JYn}{mc}{bx}{n}{<->ssub*gt/m/n}{}
 \DeclareFontShape{\kenc@JYn}{gt}{bx}{n}{<->ssub*gt/m/n}{}
@@ -592,14 +432,6 @@
 \xspcode`^^fe=3
 \xspcode`^^ff=3
 
-%\def\@setfontsize#1#2#3{\@nomath#1%
-% \ifx\protect\@typeset@protect
-%   \let\@currsize#1%
-% \fi
-% \fontsize{#2}{#3}\selectfont
-% \kanjiskip=0zw \@plus .1zw \@minus .025zw
-% \xkanjiskip=0.25em \@plus 0.15em \@minus 0.06em
-%}
 
  \renewcommand{\normalsize}{%
   \@setfontsize\normalsize\@ixpt{20.5\@Q}%
@@ -700,11 +532,7 @@
 \marginparwidth 20mm
 %\@settopoint\marginparwidth
 
-\if@tecrep
  \setlength\footnotesep{2.8mm}
-\else
- \setlength\footnotesep{2.275mm}
-\fi
 \setlength{\skip\footins}{1\Cvs plus .9\Cvs \@minus .3\Cvs}
 \setlength\intextsep   {1\Cvs \@plus .75\Cvs \@minus .25\Cvs}
 \setlength\floatsep    {1\Cvs \@plus .75\Cvs \@minus .25\Cvs}
@@ -747,11 +575,7 @@
               \labelwidth\leftmarginvi
               \advance\labelwidth-\labelsep}
 
-\if@tecrep
  \columnsep 2zw
-\else
- \columnsep 30\@Q
-\fi
 \columnseprule 0\p@
 \lineskip 2\p@ 
 \normallineskip 2\p@
@@ -777,63 +601,19 @@
 
 
 
-\newif\if@ieice@field@C \@ieice@field@Cfalse
-
-\def\field#1{%
- \if@tecrep\else
-  \def\@tempa{#1}%
-  \def\f@A{A}\def\f@B{B}\def\f@C{C}\def\f@D{D}%
-  \def\f@DI{DI}\def\f@DII{DII}%
-  \ifx \@tempa\f@A \gdef\@field{A}\else
-   \ifx \@tempa\f@B \gdef\@field{B}\else
-    \ifx \@tempa\f@C \gdef\@field{C}\global\@ieice@field@Ctrue\else
-     \ifx \@tempa\f@D \gdef\@field{D}\else
-      \ifx \@tempa\f@DI \gdef\@field{D--{\rmfamily\bfseries I}}\else
-       \ifx \@tempa\f@DII \gdef\@field{D--{\rmfamily\bfseries II}}\else
-        \gdef\@field{X}%
-  \fi\fi\fi\fi\fi\fi
- \fi
-}
-
-\def\vol#1{% Vol.J86 = Year 2003
- \def\@tempa{#1}%
- \ifx\@tempa\empty
-  \gdef\@vol{Jxx--\@field}\gdef\ft@year{xxxx}\gdef\hd@year{xxxx}%
- \else
-  \def\@tempa{x}%
-  \if\@tempa #1\relax
-   \gdef\@vol{Jxx--\@field}%
-   \gdef\ft@year{xxxx}%
-   \gdef\hd@year{xxxx}%
-  \else
-   \gdef\@vol{J#1--\@field}%
-   \@tempcnta=#1\relax
-   \advance \@tempcnta 1917\relax
-   \xdef\ft@year{\the\@tempcnta}%
-   \xdef\hd@year{\the\@tempcnta}%
-  \fi
- \fi
-}
-
-\def\no#1{%
- \def\@tempa{#1}%
- \ifx\@tempa\empty \gdef\@no{xx}\else \gdef\@no{#1}\fi
-}
-
-\def\@field{}
-\def\@vol{}
-\def\hd@year{}
-\def\ft@year{}
-\def\@no{}
-
-
-
-
 \def\FiscalYear#1{%
  \gdef\@FiscalYear{#1}%
 }
 
 \def\@FiscalYear{}
+
+\if@midterm
+  \def\hd@type{中間発表}
+  \def\@ProceedingsOf{\@FiscalYear　北九州工業高等専門学校　電子制御工学科　卒業研究　中間発表要旨集}
+\else
+  \def\hd@type{卒業論文}
+  \def\@ProceedingsOf{\@FiscalYear　北九州工業高等専門学校　電子制御工学科　卒業研究　論文集}
+\fi
 
 \def\Sissue#1{\gdef\@Sissue{#1}}
 \def\@Sissue{}
@@ -849,83 +629,10 @@
 }
 %% L (letter)
 \let\t@typefont@L\huge
-\def\head@type#1{%% 20\@JQ 平2
- %\if@cameraready
-  %\@ifundefined{PSTricksLoaded}{\scalebox{1}[0.8]{\t@typefont@L #1}}
-  % {\def\tmp@scalebox##1{\pst@makebox{\@scalebox{##1}}}%
-  %  \ifx\tmp@scalebox\scalebox
-  %   \scalebox{1 0.8}{\t@typefont@L #1}%
-  %  \else
- % \scalebox{1}[0.8]{\t@typefont@L #1}%
-  %  \fi
-  % }%
- %\else
+\def\head@type#1{
   {\t@typefont@L #1}%
- %\fi
 }
 
-
-
-
-
-
-
-\def\ps@ieicej{\let\@mkboth\@gobbletwo
- \if@letter
-  \def\hrulefill{\leaders\hrule height-1.35mm depth1.85mm\hfil}%
-  \def\@oddhead{\@Ltop
-   \smash{\hbox to \textwidth{%
-    \raisebox{-3mm}{\head@type{\hd@typeofletter}}\hrulefill
-      \llap{\normalsize\bfseries\mathversion{bold}\@Sissue}}}%
-   \@Rtop}%
-  \def\@evenhead{\@Ltop
-   \rlap{\smash{\hbox to \textwidth{%
-    \raisebox{-3mm}{\head@type{\hd@typeofletter}}\hrulefill
-   }}}\hfil
-   \ifx\@Sissue\empty
-    {\Small\head@font 電子情報通信学会論文誌\ \hd@year 
-     /\@no\ Vol.\ \@vol\ No.\,\@no}%
-   \else
-    {\normalsize\bfseries\mathversion{bold}\@Sissue}%
-   \fi
-   \@Rtop}%
- \else
-  \def\hrulefill{\leaders\hrule height-1.5mm depth1.75mm\hfil}%
-  \if@electronicsletter
-   \def\@oddhead{\@Ltop
-    \smash{\hbox to \textwidth{%
-     \raisebox{-3mm}{\csname t@typefont@\@type\endcsname\tl@type}\hrulefill
-      \llap{\normalsize\bfseries\mathversion{bold}\@Sissue}}}%
-   \@Rtop}%
-  \else
-   \def\@oddhead{\@Ltop
-    \smash{\hbox to \textwidth{%
-     \rule[-1.75mm]{14mm}{0.25mm}%
-     \raisebox{-3mm}{\csname t@typefont@\@type\endcsname\tl@type}\hrulefill
-      \llap{\normalsize\bfseries\mathversion{bold}\@Sissue}}}%
-   \@Rtop}%
-  \fi
-  \let\@evenhead\@oddhead
- \fi
- \def\@oddfoot{\@Lbot\hfil
-  {\foot@font 電子情報通信学会論文誌\hskip1zw
-    \@field\hskip1zw Vol.\ \@vol\hskip1zw No.\,\@no\hskip1zw
-   pp.\,\thepage --\pageref{ieicej@lastpage}\hskip1zw
-   %%\ft@year 年\@no 月
-   {\normalfont\copyright}（社）電子情報通信学会\ft@year
-  }\hfil
-    \llap{{\nombre@font\thepage\hskip3mm}}%
-  \@Rbot}%
- \def\@evenfoot{\@Lbot
-  \rlap{\hskip3mm{\nombre@font\thepage}}\hfil
-   {\foot@font 電子情報通信学会論文誌\hskip1zw
-    \@field\hskip1zw Vol.\ \@vol\hskip1zw
-    No.\,\@no\hskip1zw pp.\,\thepage --\pageref{ieicej@lastpage}\hskip1zw 
-    %%\ft@year 年\@no 月
-    {\normalfont\copyright}（社）電子情報通信学会\ft@year
-   }\hfil
-  \@Rbot}%
-}
 
 \def\ps@IEICEJ{\let\@mkboth\@gobbletwo
  \def\@oddfoot{\@Lbot\hfil
@@ -936,7 +643,7 @@
   \hfil\@Rbot}
  \def\@oddhead{\@Ltop
   \rlap{\hbox to \textwidth{\smash{\rule[-1.75mm]{\textwidth}{0.25mm}}}}
-   {\Small\head@font 平成\@FiscalYear 年度　北九州工業高等専門学校　電子制御工学科 卒業研究論文集}\hfil%
+   {\Small\head@font \@ProceedingsOf}\hfil%
   \@Rtop}%
 
  \def\@evenhead{\@Ltop
@@ -969,13 +676,12 @@
  \let\@mkboth\@gobbletwo
 }
 
-\if@tecrep
  \def\ps@plain{\let\@mkboth\@gobbletwo
    \let\ps@jpl@in\ps@plain
 
  \def\@oddhead{\@Ltop
   \rlap{\hbox to \textwidth{\smash{\rule[-1.75mm]{\textwidth}{0.25mm}}}}
-   {\Small\head@font 平成\@FiscalYear 年度　北九州工業高等専門学校　電子制御工学科 卒業研究論文集}\hfil%
+   {\Small\head@font \@ProceedingsOf}\hfil%
   \@Rtop}%
 
 
@@ -983,7 +689,6 @@
    \def\@oddfoot{\@Lbot\hfil {\nombre@font \thepage} \hfil\@Rbot}% \hfil
    \let\@evenhead\@oddhead
    \let\@evenfoot\@oddfoot}
-\fi
 
 \def\jtitle{\@ifnextchar[% ]
  {\d@jtitle}{\s@jtitle}}
@@ -1025,36 +730,9 @@
 %% \authornamesep1zw
 
 \def\authorlist#1{%
- \if@paper
-  \@authorlist={#1}\the\@authorlist
- \else
- % \let\authorentry\Lauthorentry
- % \@authorlist={#1}\@chkmbrship
- \fi
+  \let\authorentry\Lauthorentry
+  \@authorlist={#1}
 }
-
-%\def\Lauthorentry{\@ifnextchar[%% ]
-% {\TRL@ae}{\NL@ae}}
-
-%\def\NL@ae#1#2#3#4{\@ifnextchar[% ]
-% {\L@aeP{#1}{#2}{#3}{#4}}%
-% {\L@ae{#1}{#2}{#3}{#4}}}
-
-%\def\TRL@ae[#1]#2#3#4#5{\@ifnextchar[% ]
-% {\TRL@aeP[#1]{#2}{#3}{#4}{#5}}%
-% {\TRL@aeNP[#1]{#2}{#3}{#4}{#5}}}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 \def\authorentry{\@ifnextchar[% ]
@@ -1186,7 +864,6 @@
   \fi
 }
 
-%\if@tecrep
  \def\@outputJauthorlist{%
   \fmt@Jauthorlist
   \@authorcnt\z@
@@ -1202,22 +879,6 @@
    \repeat
   \@tempx
  }
-%\else
-% \def\@outputJauthorlist{%
-%  \fmt@Jauthorlist
-%  \@authorcnt\z@
-%   \loop\ifnum \@authorcnt < \@totalnumber
-%    \advance \@authorcnt \@ne
-%    \advance \@spcnt \@ne
-%    \@ifundefined{sp\number\@spcnt}%
-%     {\expandafter\def\csname \number\@spcnt\endcsname{&}}{}%
-%    \protected@xdef\@tempx{\@tempx
-%     \csname @Jauthorname\number\@authorcnt\endcsname
-%     \csname sp\number\@spcnt\endcsname}%
-%   \repeat
-%  \@tempx
-% }
-%\fi
 
 \def\@tempx{}
 
@@ -1252,20 +913,12 @@
 \newbox\eabstractbox
 \newbox\ekeywordbox
 \def\eabstract{\global\setbox\eabstractbox=\hbox\bgroup
- \if@tecrep
   \large
- \else
-  \normalsize
- \fi
   {\bfseries Abstract\hskip1zw}\ignorespaces}
 \def\endeabstract{\egroup}
 
 \def\ekeyword{\global\setbox\ekeywordbox=\hbox\bgroup
- \if@tecrep
   \large
- \else
-  \normalsize
- \fi
   {\bfseries Key words\hskip1zw}\ignorespaces}
 \def\endekeyword{\egroup}
 
@@ -1312,7 +965,7 @@
     \twocolumn[\@maketitle]%
    \else
     \ieicej@warning{I don't recommend onecolumn option,
-      ^^J\space\space because of no compatibility with technicalreport option}%
+      ^^J\space\space because of no compatibility with thesis option}%
     \@maketitle
    \fi
   \endgroup
@@ -1459,7 +1112,7 @@
 
  \def\jabstract{\global\setbox\jabstractbox\hbox\bgroup
    \large
-   {\bfseries あらまし\hskip1zw}\ignorespaces}
+   {\bfseries 概要\hskip1zw}\ignorespaces}
    \def\endjabstract{\egroup}
 
  \def\jkeyword{\global\setbox\jkeywordbox\hbox\bgroup
@@ -1612,12 +1265,7 @@
 \@namedef{3@font}{\bfseries}
 \def\@seccntformat#1{\csname the#1\endcsname\hskip1zw}
 
-\if@tecrep
  \def\sec@font{\bfseries\mathversion{bold}\baselineskip20.5\@Q}
-\else
- \DeclareFixedFont{\KFsec}{\kenc@JYn}{gt}{m}{n}{14\@JQ}
- \def\sec@font{\bfseries\KFsec\mathversion{bold}\baselineskip19\@Q}
-\fi
 
 \newcommand{\section}{\@startsection{section}{1}{1zw}%
    {.5\Cvs}% \@plus.1mm \@minus.1mm
@@ -1960,8 +1608,7 @@
 \def\fnum@efigure{Fig.\,\thefigure}
 \newenvironment{figure}
                {\@floatenv
-                \if@tecrep\capwidth\hsize\ecapwidth\hsize\else
-                 \capwidth65mm\ecapwidth65mm\fi
+                \capwidth\hsize\ecapwidth\hsize
                 \abovecaptionskip1mm\belowcaptionskip\z@\@float{figure}}
                {\end@float}
 \newenvironment{figure*}
@@ -1977,8 +1624,7 @@
 \def\fnum@etable{Table~\thetable}
 \newenvironment{table}
                {\@floatenv
-                \if@tecrep\capwidth\hsize\ecapwidth\hsize\else
-                 \capwidth65mm\ecapwidth65mm\fi
+                \capwidth\hsize\ecapwidth\hsize
                 \abovecaptionskip\z@\belowcaptionskip3pt\@float{table}}
                {\end@float}
 \newenvironment{table*}
@@ -2148,37 +1794,6 @@
 \def\@biblabel#1{[#1]}
 \let\@openbib@code\@empty
 
-\def\@uketsuke{%
- \vskip6\@Q
- \raggedleft\rightskip1zw
-  （\@received\@revised\@finalreceived ）\kern-.5zw\par
-}
-
-\def\received#1#2#3{%
- \gdef\@received{平成#1年#2月#3日受付}%
- \gdef\@receivedyear{#1}}
-\received{xx}{xx}{xx}
-
-\def\revised#1#2#3{%
- \gdef\@revisedyear{#1}%
- \ifx\@receivedyear\@revisedyear
-  \gdef\@revised{，#2月#3日再受付}%
- \else
-  \gdef\@revised{，#1年#2月#3日再受付}%
- \fi
-}
-\def\@revised{}
-
-\def\finalreceived#1#2#3{%
- \gdef\@finalreceivedyear{#1}%
- \ifx\@revisedyear\@finalreceivedyear
-  \gdef\@finalreceived{，\inhibitglue\break #2月#3日最終受付}%
- \else
-  \gdef\@finalreceived{，\inhibitglue\break #1年#2月#3日最終受付}%
- \fi
-}
-\def\@finalreceived{}
-
 %% paper, electronicsletter
 \newenvironment{biography}{\par
  \raggedbottom
@@ -2197,114 +1812,10 @@
  {\pic@profile}{\stepcounter{profile}%
   \pic@profile[a\theprofile.\ieicej@in@ext]}}}% 
 
-\long\def\pic@profile[#1]#2#3#4{%
- %\stepcounter{profile}%
- \if #2r \def\p@mbrship{（正員）\kern-.5zw}\else
-  \if #2m \def\p@mbrship{（正員）\kern-.5zw}\else
-   \if #2s \def\p@mbrship{（学生員）\kern-.5zw}\else
-    \if #2n \def\p@mbrship{}\else
-     \if #2a \def\p@mbrship{（准員）\kern-.5zw}\else
-      \if #2h \def\p@mbrship{（名誉員）\kern-.5zw}\else
-       \if #2f \def\p@mbrship{（正員：フェロー）\kern-.5zw}\else
-        \if #2e \def\p@mbrship{（正員：シニア会員）\kern-.5zw}\else
-  \def\p@mbrship{}%
-  \ieicej@warning{Check the 1st. argument of \string\profile{#2}{#3}{}}%
- \fi\fi\fi\fi\fi\fi\fi\fi
- \def\@checkname{#3}%
- \setbox\@tempboxa\hbox{\spaceskip=100mm #3}%
- \ifdim \wd\@tempboxa < 100mm
-  \ieicej@warning{Profile's name "#3" doesn't have a space}%
-  \let\@authorname\@checkname
- \else
-  \setbox\@tempboxa\hbox{#3}%
-   \ifdim \wd\@tempboxa > 5zw
-    \def\@tempb##1 ##2\@nil{##1\hskip\authornamesep ##2}%
-   \else
-    \def\@tempb##1 ##2\@nil{\leavevmode\hbox to 5zw{##1\hfil ##2}}%
-   \fi
-  \protected@edef\@authorname{\expandafter\@tempb\@checkname\@nil}%
- \fi
- \setbox\@tempboxa\hbox{%
-  \begin{minipage}[t]{19zw}%
-   \small\baselineskip15\@Q
-   {\normalsize{\bfseries \@authorname}\hskip1zw
-    \p@mbrship\nobreak\rule[-3mm]{0mm}{4mm}}\hfil\break
-     \hspace*{1zw}#4\unskip\inhibitglue
-  \end{minipage}%
- }%
- \@tempdima \ht\@tempboxa
- \advance \@tempdima \dp\@tempboxa
-  \leavevmode
-  \hangindent9zw\hangafter-7\relax
-   \IfFileExists{#1}% a\theprofile.\ieicej@in@ext
-    {\smash{\lower23.9mm\hbox to \z@{\hss
-      \resizebox{20mm}{26.4mm}{%
-       \includegraphics{#1}}\hskip2.5mm
-     }}}%
-    {\smash{\lower23.9mm\hbox to \z@{\hss
-      \unitlength1mm
-      \begin{picture}(20,26.4)
-       \put(0,0){\framebox(20,26.4){\null}}%
-      \end{picture}\hskip2.5mm
-     }}}%
-  \ifdim \@tempdima < 26.4mm
-   \vtop to 26.4mm{%
-    \hbox to 19zw{\hss
-    \begin{minipage}[t]{19zw}%
-     \small\baselineskip15\@Q
-     {\normalsize{\bfseries \@authorname}\hskip1zw
-      \p@mbrship\nobreak\rule[-3mm]{0mm}{4mm}}\hfil\break
-       \hspace*{1zw}#4\unskip\inhibitglue
-    \end{minipage}\hss}\vss
-   }\par
-  \else
-   {\normalsize{\bfseries \@authorname}\hskip1zw
-    \p@mbrship\nobreak\rule[-3mm]{0mm}{4mm}}\hfil\break
-     \hspace*{1zw}#4\par
-  \fi
-  \nointerlineskip
-  \vskip7mm
-}
 
-\long\def\np@profile#1#2#3{%
- \stepcounter{profile}%
- \if #1r \def\p@mbrship{（正員）\kern-.5zw}\else
-  \if #1m \def\p@mbrship{（正員）\kern-.5zw}\else
-   \if #1s \def\p@mbrship{（学生員）\kern-.5zw}\else
-    \if #1n \def\p@mbrship{}\else
-     \if #1a \def\p@mbrship{（准員）\kern-.5zw}\else
-      \if #1h \def\p@mbrship{（名誉員）\kern-.5zw}\else
-       \if #1f \def\p@mbrship{（正員：フェロー）\kern-.5zw}\else
-        \if #2e \def\p@mbrship{（正員：シニア会員）\kern-.5zw}\else
-  \def\p@mbrship{}%
-  \ieicej@warning{Check the 1st. argument of \string\profile{#1}{#2}{}}%
- \fi\fi\fi\fi\fi\fi\fi\fi
- \def\@checkname{#2}%
- \setbox\@tempboxa\hbox{\spaceskip=100mm #2}%
- \ifdim \wd\@tempboxa < 100mm
-  \ieicej@warning{Profile's name "#2" doesn't have a space}%
-  \let\@authorname\@checkname
- \else
-  \setbox\@tempboxa\hbox{#2}%
-   \ifdim \wd\@tempboxa > 5zw
-    \def\@tempb##1 ##2\@nil{##1\hskip\authornamesep ##2}%
-   \else
-    \def\@tempb##1 ##2\@nil{\leavevmode\hbox to 5zw{##1\hfil ##2}}%
-   \fi
-  \protected@edef\@authorname{\expandafter\@tempb\@checkname\@nil}%
- \fi
- {\normalsize{\bfseries \@authorname}\hskip1zw
-  \p@mbrship\nobreak\rule[-3mm]{0mm}{4mm}}\hfil\break
-   \hspace*{1zw}#3\par
-  \nointerlineskip
-  \vskip7mm
-}
-
-\if@tecrep
  \renewenvironment{biography}{\relax}{\relax}
  \long\def\pic@profile[#1]#2#3#4{}
  \long\def\np@profile#1#2#3{}
-\fi
 
 \renewcommand{\footnoterule}{%
   \kern-3\p@
@@ -2321,19 +1832,6 @@
 \def\thefootnote{\@arabic\c@footnote}
 \def\thempfootnote{\@fnsymbol\c@mpfootnote}
 
-%% from [proc|slide].cls
-%% \def\thefootnote{\fnsymbol{footnote}}
-%% from [article|report|book].cls
-%% \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
-%% from latex.ltx
-%% \def\@fnsymbol#1{\ensuremath{\ifcase#1\or *\or \dagger\or \ddagger\or
-%%    \mathsection\or \mathparagraph\or \|\or **\or \dagger\dagger
-%%    \or \ddagger\ddagger \else\@ctrerr\fi}}
-
-%% from fleqn.clo
-%%\ProvidesFile{fleqn.clo}
-%%       [1998/08/17 v1.1c Standard LaTeX option
-%%                                   (flush left equations)]
 \newdimen\mathindent
 \AtEndOfClass{\mathindent1zw}% \leftmargini
 \renewcommand\[{\relax
@@ -2458,7 +1956,7 @@
 %%\newcommand{\contentsname}{目 次}
 %%\newcommand{\listfigurename}{図 目 次}
 %%\newcommand{\listtablename}{表 目 次}
-\newcommand{\refname}{文献}
+\newcommand{\refname}{参考文献}
 %%\newcommand{\indexname}{索 引}
 \newcommand{\figurename}{図}
 \newcommand{\tablename}{表}
@@ -2581,9 +2079,6 @@
 \widowpenalty\z@
 
 \AtBeginDocument{%
- \if@ieice@field@C
-  \let\ecaption\@gobble
- \fi
  %%
  \displaywidowpenalty\z@
  \interdisplaylinepenalty\z@
@@ -2755,11 +2250,7 @@
    \raggedbottom
    \centering\noindent{\bfseries\@secjidori{\refname}}}% 
   \def\bibfont{\small\baselineskip15\@Q}%
-  \if@tecrep
    \bibhang22H
-  \else
-   \bibhang20H
-  \fi
   \bibsep\z@
  }{}%
  %% binary operator --> commented v3.1
@@ -2783,47 +2274,13 @@
  %\let\ne\neq
 }
 
-\if@tecrep
  \pagestyle{IEICEJ}
-\else
- \AtEndDocument{%
-  %%
-  \clearpage
-  \addtocounter{page}{-1}%
-  \immediate\write\@auxout
-   {\string\newlabel{ieicej@lastpage}{{}{\thepage}}}%
-  \addtocounter{page}{1}%
-  %%
-  %\if@cameraready
-  %\else
-   \onecolumn
-   \thispagestyle{empty}
-   \ifvoid\eabstractbox\else
-    \leavevmode
-    \unhbox\eabstractbox\par
-    \halflineskip
-   \fi
-   \ifvoid\ekeywordbox\else
-    \leavevmode
-    \unhbox\ekeywordbox
-   \fi
-   %\vskip2\baselineskip
-   %\@Membership@Number
-  %\fi
- }
- \pagestyle{IEICEJ}
-\fi
-
 \pagenumbering{arabic}
 \raggedbottom
 \if@twocolumn
   \twocolumn
   \sloppy
-  \if@tecrep
    \raggedbottom
-  \else
-   \flushbottom
-  \fi
 \else
   \onecolumn
 \fi
