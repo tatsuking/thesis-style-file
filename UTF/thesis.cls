@@ -777,7 +777,7 @@
  \def\al@none{0}%
  \fmt@Jan{#2}{#3}%
  \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@　（指導教員　#1）
+  \@authorname\kern\z@（指導教員　#1）
  }
  \global\@totalnumber=\@authorcnt
 }
@@ -1000,22 +1000,14 @@
 
  \def\@maketitle{%
   \setbox\@tempboxa\vbox{%
+   \centering
+   \begin{minipage}{137.5mm}
     \def\baselinestretch{\@titlepagebaselinestretch}%
     \hskip8mm
-    \vtop{\footnotesize\baselineskip3mm
-     %\hbox{北九州工業高等専門学校　電子制御工学科}%
-%     \hbox{\fontsize{6}{4}\selectfont NATL. INST. OF TECH., KITAKYUSHU COLLEGE}%
-%     \hbox{\fontsize{6}{4}\selectfont DEPT. OF ELECTRONICS AND CONTROL ENGINEERING}%
-    }
-\hfill
-    \vtop{\footnotesize\baselineskip3mm
-     %\hbox{平成\@FiscalYear 年度　北九州工業高等専門学校　電子制御工学科 卒業研究論文集}%
-%     \hbox{平成\@FiscalYear 年度　卒業研究　論文集}%
-    }\hskip8mm\hbox{}\par
     \vskip\baselineskip
     \bgroup
      \centering
-     {\fontsize{16}{23}\selectfont
+     {\fontsize{16}{23}\selectfont\bfseries
       \@jtitle\par
      }%
      \vskip.25\baselineskip
@@ -1026,7 +1018,7 @@
       }%
       \vskip.25\baselineskip
      \fi
-     {\fontsize{16}{23}\selectfont
+     {\fontsize{16}{23}\selectfont\bfseries
       \@etitle\par
      }%
      \vskip.25\baselineskip
@@ -1041,16 +1033,12 @@
        \@outputJauthorlist\par
      }%
      \vskip.5\baselineskip
-    \egroup
-    \bgroup\large
-     \leavevmode
-     \unhbox\jabstractbox\par
-     \nointerlineskip
+
+     \vskip.25\baselineskip
+     \hfill\box\jabstractbox\par
      \vskip\baselineskip
-     \vskip-1zh
-     \vskip0pt
-     \leavevmode
-     \unhbox\jkeywordbox\par
+     \hfill\box\jkeywordbox
+     \vskip\baselineskip
     \egroup
  %%
 %    \vskip1.5\baselineskip
@@ -1081,6 +1069,9 @@
 %     \leavevmode \unhbox\ekeywordbox
 %    \egroup
     \vskip\baselineskip
+
+   \end{minipage}%
+
   }%
   \@tempdima\ht\@tempboxa
   \advance \@tempdima \dp\@tempboxa
@@ -1112,14 +1103,29 @@
  \newbox\jkeywordbox
 
  \def\jabstract{\global\setbox\jabstractbox\hbox\bgroup
-   \large
-   {\bfseries 概要\hskip1zw}\ignorespaces}
-   \def\endjabstract{\egroup}
+ \begin{minipage}[t]{137.5mm}
+ \Small{\bfseries 概要：
+ }\ignorespaces}
+ \def\endjabstract{\end{minipage}\egroup}
 
- \def\jkeyword{\global\setbox\jkeywordbox\hbox\bgroup
-   \large
-   {\bfseries キーワード\hskip1zw}\ignorespaces}
- \def\endjkeyword{\egroup}
+\def\jkeyword{\global\setbox\jkeywordbox\hbox\bgroup
+ \begin{minipage}[t]{137.5mm}
+ \Small{\bfseries キーワード：}\ignorespaces}
+ \def\endjkeyword{\end{minipage}\egroup}
+
+
+
+% \def\jabstract{\global\setbox\jabstractbox\hbox\bgroup
+%   \large
+%   {\bfseries 概要：\hskip1zw}\ignorespaces}
+%   \def\endjabstract{\egroup}
+
+% \def\jkeyword{\global\setbox\jkeywordbox\hbox\bgroup
+%   \large
+%   {\bfseries キーワード：\hskip1zw}\ignorespaces}
+% \def\endjkeyword{\egroup}
+
+
 
  \let\abstract\jabstract
  \let\endabstract\endjabstract

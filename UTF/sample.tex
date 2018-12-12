@@ -7,19 +7,14 @@
 %\usepackage[fleqn]{amsmath}
 %\usepackage{amssymb}
 
-\FiscalYear{平成31年度} % 年度を入力
-
-\newcommand{\AmSLaTeX}{%
- $\mathcal A$\lower.4ex\hbox{$\!\mathcal M\!$}$\mathcal S$-\LaTeX}
-\def\BibTeX{{\rmfamily B\kern-.05em{\scshape i\kern-.025em b}\kern-.08em
- T\kern-.1667em\lower.7ex\hbox{E}\kern-.125em X}}
+\FiscalYear{平成30年度} % 年度を入力
 
 \jtitle{和文タイトル}
 %\jsubtitle{技術研究報告原稿のための解説とテンプレート}
 \etitle{English Title }
 %\esubtitle{Guide to the Technical Report and Template}
 \authorlist{%
- \authorentry[○○　○○]{53xx}{電制 花子}% 
+ \authorentry[○○　○○]{53xx}{電制　花子}% 
 }
 %
 \begin{document}
@@ -99,28 +94,14 @@
 上におくと \verb/\ref/ で正しい番号を参照できません．
 \end{itemize}
 
-\subsubsection{図の取り込み}
+\subsubsection{サブサブセクション}
 
-図の取り込みに関しては，「技術研究報告」では，
-「発表者が作成した原稿をそのままオフセット印刷します」ので，
-図はどのような形式のものでも構いません．
-ここではPDF形式の図を読み込む場合の説明を簡単にします．
+このフォーマットファイルをコピーして予稿を作成してください．Wordの新規作成はフォーマットに合わない箇所が出てくる可能性があります．用紙サイズA4，余白上左右25mm，下20mm，標準の文字数を使う設定にしてください．TeXを使用する場合，可能な限り印刷イメージを近づけてください．提出ファイル形式はPDFとします．段を変更する時は改行ではなく段区切りを使用してください．必要な場合はサブタイトルを記述してください．
+見出し1は段落前0.5行が設定されています．本文は段落の前に1文字分字下げを設定してください．句読点は「，」「．」（全角カンマ，全角ピリオド）です．「です・ます調」ではありません．「だ・である」調で文体を統一してください．フォントは基本的に全角はMS 明朝，半角はTimes New Romanです．タイトル，見出しなどはBold(太字)を指定してください．本文のフォントは9ptとします．論文のページ数は6ページとします． 
 
-例えば，パッケージとして
-\begin{verbatim}
-\usepackage[dvipdfmx]{graphicx}
-\end{verbatim}
-を指定し，
-\begin{verbatim}
-\begin{figure}[tb]
-\begin{center}
- \includegraphics{file.pdf}
-\end{center}
-\caption{}
-\ecaption{}
-\end{figure}
-\end{verbatim}
-のような使い方をします．
+
+
+
 \begin{thebibliography}{99}
 %\bibitem{ohno}
 %大野義夫編，\TeX\ 入門，
