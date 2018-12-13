@@ -1,8 +1,9 @@
 %%%
 %% thesis.cls (pLaTeX2e)
-%%  for the Thesis of Department of Electronics and Control Engineering,
+%%  このスタイルファイルは電子情報通信学会の技術研究報告（研究会発表論文）原稿作成用のスタイルファイルv3.1（ieicej.cls）をベースに
+%%　本校卒業研究用に作成し直したものである。このスタイルファイルは本校内部でのみ使用することとする。
 %%  National Institute of Technology, Kitakyushu College, 2018-.
-%% E-mail: tfukuda@kct.ac.jp
+%%%
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesClass{thesis}
   [2018/12/11 v1.0 for Thesis]
@@ -44,9 +45,6 @@
  }
 
 \def\ieicej@warning{\ClassWarningNoLine{ieicej}}
-
-
-
 
 \newcounter{@thesis}
 \newcommand{\@ptsize}{}
@@ -636,10 +634,10 @@
 
 \def\ps@IEICEJ{\let\@mkboth\@gobbletwo
  \def\@oddfoot{\@Lbot\hfil
-  {\nombre@font \thepage}
+  %{\nombre@font \thepage}
   \hfil\@Rbot}%
  \def\@evenfoot{\@Lbot\hfil
-  {\nombre@font \thepage}
+  %{\nombre@font \thepage}
   \hfil\@Rbot}
  \def\@oddhead{\@Ltop
   \rlap{\hbox to \textwidth{\smash{\rule[-1.75mm]{\textwidth}{0.25mm}}}}
@@ -686,7 +684,9 @@
 
 
    %\def\@oddhead{\@Ltop\hfil\@Rtop}%
-   \def\@oddfoot{\@Lbot\hfil {\nombre@font \thepage} \hfil\@Rbot}% \hfil
+   \def\@oddfoot{\@Lbot\hfil
+   % {\nombre@font \thepage} 
+   \hfil\@Rbot}% \hfil
    \let\@evenhead\@oddhead
    \let\@evenfoot\@oddfoot}
 
