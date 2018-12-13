@@ -766,7 +766,7 @@
   \else
    \def\@tempb##1 ##2\@nil{\leavevmode\hbox to 7zw{##1\hfil ##2}}%
   \fi
-   \def\@tempname{#1 #2}%
+   \def\@tempname{#1 　#2}%
    \protected@edef\@authorname{\expandafter\@tempb\@tempname \@nil}%
  \fi
 }
@@ -777,7 +777,7 @@
  \def\al@none{0}%
  \fmt@Jan{#2}{#3}%
  \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@（指導教員　#1）
+  \@authorname\kern\z@　（指導教員　#1）
  }
  \global\@totalnumber=\@authorcnt
 }
