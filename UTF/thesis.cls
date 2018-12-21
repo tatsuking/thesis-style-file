@@ -1861,53 +1861,55 @@
                   \end{trivlist}%
                 \else \@badmath
                 \fi}
-\renewenvironment{equation}%
-    {\@beginparpenalty\predisplaypenalty
-     \@endparpenalty\postdisplaypenalty
-     \refstepcounter{equation}%
-     \parsep  4\p@ \@plus2\p@ \@minus\p@
-     \topsep  8\p@ \@plus2\p@ \@minus4\p@
-     \itemsep 4\p@ \@plus2\p@ \@minus\p@
-     \trivlist \item[]\leavevmode
-       \hb@xt@\linewidth\bgroup $\m@th% $
-         \displaystyle
-         \hskip\mathindent}%
-        {$\hfil % $
-         \displaywidth\linewidth\hbox{\@eqnnum}%
-       \egroup
-     \endtrivlist}
-\renewenvironment{eqnarray}{%
-    \stepcounter{equation}%
-    \parsep  4\p@ \@plus2\p@ \@minus\p@
-    \topsep  8\p@ \@plus2\p@ \@minus4\p@
-    \itemsep 4\p@ \@plus2\p@ \@minus\p@
-    \def\@currentlabel{\p@equation\theequation}%
-    \global\@eqnswtrue\m@th
-    \global\@eqcnt\z@
-    \tabskip\mathindent
-    \let\\=\@eqncr
-    \setlength\abovedisplayskip{\topsep}%
-    \ifvmode
-      \addtolength\abovedisplayskip{\partopsep}%
-    \fi
-    \addtolength\abovedisplayskip{\parskip}%
-    \setlength\belowdisplayskip{\abovedisplayskip}%
-    \setlength\belowdisplayshortskip{\abovedisplayskip}%
-    \setlength\abovedisplayshortskip{\abovedisplayskip}%
-    $$\everycr{}\halign to\linewidth% $$
-    \bgroup
-      \hskip\@centering
-      $\displaystyle\tabskip\z@skip{##}$\@eqnsel&%
-      \global\@eqcnt\@ne \hskip.8\arraycolsep \hfil${##}$\hfil&%
-      \global\@eqcnt\tw@ \hskip.8\arraycolsep
-        $\displaystyle{##}$\hfil \tabskip\@centering&%
-      \global\@eqcnt\thr@@
-        \hb@xt@\z@\bgroup\hss##\egroup\tabskip\z@skip\cr}%
-      {\@@eqncr
-    \egroup
-    \global\advance\c@equation\m@ne$$% $$
-    \@ignoretrue
-    }
+%\renewenvironment{equation}%
+%    {\@beginparpenalty\predisplaypenalty
+%     \@endparpenalty\postdisplaypenalty
+%     \refstepcounter{equation}%
+%     \parsep  4\p@ \@plus2\p@ \@minus\p@
+%     \topsep  8\p@ \@plus2\p@ \@minus4\p@
+%     \itemsep 4\p@ \@plus2\p@ \@minus\p@
+%     \trivlist \item[]\leavevmode
+%       \hb@xt@\linewidth\bgroup $\m@th% $
+%         \displaystyle
+%         \hskip\mathindent}%
+%        {$\hfil % $
+%         \displaywidth\linewidth\hbox{\@eqnnum}%
+%       \egroup
+%     \endtrivlist}
+%\renewenvironment{eqnarray}{%
+%    \stepcounter{equation}%
+%    \parsep  4\p@ \@plus2\p@ \@minus\p@
+%    \topsep  8\p@ \@plus2\p@ \@minus4\p@
+%    \itemsep 4\p@ \@plus2\p@ \@minus\p@
+%    \def\@currentlabel{\p@equation\theequation}%
+%    \global\@eqnswtrue\m@th
+%    \global\@eqcnt\z@
+%    \tabskip\mathindent
+%    \let\\=\@eqncr
+%    \setlength\abovedisplayskip{\topsep}%
+%    \ifvmode
+%      \addtolength\abovedisplayskip{\partopsep}%
+%    \fi
+%    \addtolength\abovedisplayskip{\parskip}%
+%    \setlength\belowdisplayskip{\abovedisplayskip}%
+%    \setlength\belowdisplayshortskip{\abovedisplayskip}%
+%    \setlength\abovedisplayshortskip{\abovedisplayskip}%
+%    $$\everycr{}\halign to\linewidth% $$
+%    \bgroup
+%      \hskip\@centering
+%      $\displaystyle\tabskip\z@skip{##}$\@eqnsel&%
+%      \global\@eqcnt\@ne \hskip.8\arraycolsep \hfil${##}$\hfil&%
+%      \global\@eqcnt\tw@ \hskip.8\arraycolsep
+%        $\displaystyle{##}$\hfil \tabskip\@centering&%
+%      \global\@eqcnt\thr@@
+%        \hb@xt@\z@\bgroup\hss##\egroup\tabskip\z@skip\cr}%
+%      {\@@eqncr
+%    \egroup
+%    \global\advance\c@equation\m@ne$$% $$
+%    \@ignoretrue
+%    }
+
+
 %%\endinput
 %%
 %% End of file `fleqn.clo'.
