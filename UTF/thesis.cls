@@ -736,7 +736,7 @@
 \fi
 }
 
-\def\authorentry{\@ifnextchar[% ]
+\def\authorentry{\@ifnextchar[% []があれば\TR@aeでなければ\N@ae
  {\TR@ae}{\N@ae}}
 
 \def\N@ae#1#2#3{\@ifnextchar[% ]
@@ -751,23 +751,29 @@
 
 
 
-\def\fmt@Jan#1#2{%
- \expandafter\def\csname EICMN@name\number\@authorcnt\endcsname{#1 #2}%
- \setbox\@tempboxb\hbox{\spaceskip=100mm #1 #2}%
- \ifdim \wd\@tempboxb < 100mm
+% \def\fmt@Jan#1#2{%
+ \def\fmt@Jan#1#2#3{%
+% \expandafter\def\csname EICMN@name\number\@authorcnt\endcsname{#1 #2}%
+ \expandafter\def\csname EICMN@name\number\@authorcnt\endcsname{#1 #2 #3}%
+% \setbox\@tempboxb\hbox{\spaceskip=300mm #1 #2}%
+ \setbox\@tempboxb\hbox{#1 #2 #3}%
+ \ifdim \wd\@tempboxb < 10mm
   \ieicej@warning{Author's name "#1" doesn't have a space}%
   \def\@tempname{#1}%
   \def\@tempb##1\@nil{##1}%
   \protected@edef\@authorname{\expandafter\@tempb\@tempname \@nil}%
  \else
   \setbox\@tempboxb\hbox{#1}%
-  \ifdim \wd\@tempboxb > 7zw
-   \def\@tempb##1 ##2\@nil{##1\hskip\authornamesep ##2}%
+  \ifdim \wd\@tempboxb > 30zw
+%  \def\@tempb##1 ##2\@nil{##1\hskip\authornamesep ##2}%
+   \def\@tempb##1 ##2 ##3\@nil{test##1\hskip\authornamesep ##2 ##3}%
   \else
-   \def\@tempb##1 ##2\@nil{\leavevmode\hbox to 7zw{##1\hfil ##2}}%
+%   \def\@tempb##1 ##2\@nil{\leavevmode\hbox to 7zw{##1\hfil ##2}}%
+   \def\@tempb##1 ##2 ##3\@nil{##1 ##2 ##3}%
   \fi
-   \def\@tempname{#1 　#2}%
-   \protected@edef\@authorname{\expandafter\@tempb\@tempname \@nil}%
+%   \def\@tempname{#1 　#2}%
+  \def\@tempname{#1 　#2  #3}%
+  \protected@edef\@authorname{\expandafter\@tempb\@tempname \@nil}%
  \fi
 }
 
@@ -775,9 +781,10 @@
  \@tempcnta\z@
  \advance \@authorcnt \@ne
  \def\al@none{0}%
- \fmt@Jan{#2}{#3}%
+% \fmt@Jan{#2}{#3}%
+ \fmt@Jan{#2}{#3}{（ 指導教員　#1）}%
  \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@　（指導教員　#1）
+  \@authorname\kern\z@%　（指導教員　#1）
  }
  \global\@totalnumber=\@authorcnt
 }
@@ -867,7 +874,7 @@
 
  \def\@outputJauthorlist{%
   \fmt@Jauthorlist
-  \@authorcnt\z@
+  \@authorcnt\z@  
    \loop\ifnum \@authorcnt < \@totalnumber
     \advance \@authorcnt \@ne
     \advance \@spcnt \@ne
@@ -875,7 +882,7 @@
      {\expandafter\def\csname sp\number\@spcnt\endcsname{\hskip\Pauthorsep}}{}%
     \let\cr\@par
     \protected@xdef\@tempx{\@tempx
-     \mbox{\csname @Jauthorname\number\@authorcnt\endcsname}%
+    \mbox{\csname @Jauthorname\number\@authorcnt\endcsname}
       \csname sp\number\@spcnt\endcsname}%
    \repeat
   \@tempx
