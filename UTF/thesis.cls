@@ -736,27 +736,26 @@
 \fi
 }
 
-\def\authorentry{\@ifnextchar[% []があれば\TR@aeでなければ\N@ae
- {\TR@ae}{\N@ae}}
+%\def\authorentry{\@ifnextchar[% []があれば\TR@aeでなければ\N@ae
+% {\TR@ae}{\TR@ae}}
+\def\authorentry#1#2{\TR@aeNP[#1]{#2}}
+\def\eauthorentry#1#2{\TRE@aeNP[#1]{#2}}
 
-\def\N@ae#1#2#3{\@ifnextchar[% ]
- {\@aeP{#1}{#2}{#3}}%
- {\@ae{#1}{#2}{#3}}}
+%\def\N@ae#1#2#3{\@ifnextchar[% ]
+% {\@aeP{#1}{#2}{#3}}%
+% {\@ae{#1}{#2}{#3}}}
 
-\def\TR@ae[#1]#2#3#4{\@ifnextchar[% ]
- {\TR@aeP[#1]{#2}{#3}{#4}}%
- {\TR@aeNP[#1]{#2}{#3}}}
-
-
-
+%\def\TR@ae[#1]#2#3#4{\@ifnextchar[% ]
+% {\TR@aeP[#1]{#2}{#3}{#4}}%
+% {\TR@aeNP[#1]{#2}{#3}}}
 
 
 % \def\fmt@Jan#1#2{%
- \def\fmt@Jan#1#2#3{%
+\def\fmt@Ean#1#2{%
 % \expandafter\def\csname EICMN@name\number\@authorcnt\endcsname{#1 #2}%
- \expandafter\def\csname EICMN@name\number\@authorcnt\endcsname{#1 #2 #3}%
+ \expandafter\def\csname EICMN@name\number\@authorcnt\endcsname{#1 #2}%
 % \setbox\@tempboxb\hbox{\spaceskip=300mm #1 #2}%
- \setbox\@tempboxb\hbox{#1 #2 #3}%
+ \setbox\@tempboxb\hbox{#1 #2}%
  \ifdim \wd\@tempboxb < 10mm
   \ieicej@warning{Author's name "#1" doesn't have a space}%
   \def\@tempname{#1}%
@@ -766,25 +765,65 @@
   \setbox\@tempboxb\hbox{#1}%
   \ifdim \wd\@tempboxb > 30zw
 %  \def\@tempb##1 ##2\@nil{##1\hskip\authornamesep ##2}%
-   \def\@tempb##1 ##2 ##3\@nil{test##1\hskip\authornamesep ##2 ##3}%
+   \def\@tempb##1 ##2\@nil{##1\hskip\authornamesep ##2}%
   \else
 %   \def\@tempb##1 ##2\@nil{\leavevmode\hbox to 7zw{##1\hfil ##2}}%
-   \def\@tempb##1 ##2 ##3\@nil{##1 ##2 ##3}%
+   \def\@tempb##1 ##2 ##3 ##4\@nil{##1 ##2,\hspace{-1em} ##3 ##4}%
   \fi
 %   \def\@tempname{#1 　#2}%
-  \def\@tempname{#1 　#2  #3}%
+  \def\@tempname{#1 　#2}%
   \protected@edef\@authorname{\expandafter\@tempb\@tempname \@nil}%
  \fi
 }
 
-\def\TR@aeNP[#1]#2#3{%
+
+
+% \def\fmt@Jan#1#2{%
+ \def\fmt@Jan#1#2{%
+% \expandafter\def\csname EICMN@name\number\@authorcnt\endcsname{#1 #2}%
+ \expandafter\def\csname EICMN@name\number\@authorcnt\endcsname{#1 #2}%
+% \setbox\@tempboxb\hbox{\spaceskip=300mm #1 #2}%
+ \setbox\@tempboxb\hbox{#1 #2}%
+ \ifdim \wd\@tempboxb < 10mm
+  \ieicej@warning{Author's name "#1" doesn't have a space}%
+  \def\@tempname{#1}%
+  \def\@tempb##1\@nil{##1}%
+  \protected@edef\@authorname{\expandafter\@tempb\@tempname \@nil}%
+ \else
+  \setbox\@tempboxb\hbox{#1}%
+  \ifdim \wd\@tempboxb > 30zw
+%  \def\@tempb##1 ##2\@nil{##1\hskip\authornamesep ##2}%
+   \def\@tempb##1 ##2\@nil{##1\hskip\authornamesep ##2}%
+  \else
+%   \def\@tempb##1 ##2\@nil{\leavevmode\hbox to 7zw{##1\hfil ##2}}%
+   \def\@tempb##1 ##2\@nil{##1，\hspace{-1zw}##2}%
+  \fi
+%   \def\@tempname{#1 　#2}%
+  \def\@tempname{#1 　#2}%
+  \protected@edef\@authorname{\expandafter\@tempb\@tempname \@nil}%
+ \fi
+}
+
+\def\TR@aeNP[#1]#2{%
  \@tempcnta\z@
  \advance \@authorcnt \@ne
  \def\al@none{0}%
 % \fmt@Jan{#2}{#3}%
- \fmt@Jan{#2}{#3}{（ 指導教員　#1）}%
+ \fmt@Jan{#1}{#2}%
  \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
-  \@authorname\kern\z@%　（指導教員　#1）
+  \@authorname\kern\z@%
+ }
+ \global\@totalnumber=\@authorcnt
+}
+
+\def\TRE@aeNP[#1]#2{%
+ \@tempcnta\z@
+ \advance \@authorcnt \@ne
+ \def\al@none{0}%
+% \fmt@Jan{#2}{#3}%
+ \fmt@Ean{#1}{#2}%
+ \expandafter\protected@xdef\csname @Jauthorname\number\@authorcnt\endcsname{%
+  \@authorname\kern\z@%
  }
  \global\@totalnumber=\@authorcnt
 }
